@@ -11,14 +11,34 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             line-height: 1.6;
             color: #333;
             background: #f8f9fa;
         }
-
+        .language-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .language-selector select {
+            padding: 10px 15px;
+            border: none;
+            background: white;
+            cursor: pointer;
+            font-size: 0.95em;
+            color: #1a1a2e;
+            font-weight: 500;
+        }
+        .language-selector select:hover {
+            background: #f8f9fa;
+        }
         header {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             color: white;
@@ -26,20 +46,17 @@
             text-align: center;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-
         header h1 {
             font-size: 3.5em;
             margin-bottom: 15px;
             font-weight: 700;
         }
-
         header p {
             font-size: 1.3em;
             opacity: 0.9;
             max-width: 600px;
             margin: 0 auto 30px;
         }
-
         .cta-button {
             display: inline-block;
             background: #ff6b6b;
@@ -53,29 +70,24 @@
             border: none;
             cursor: pointer;
         }
-
         .cta-button:hover {
             background: #ff5252;
         }
-
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
-
         section {
             padding: 60px 20px;
             margin: 0 auto;
         }
-
         section h2 {
             font-size: 2.5em;
             margin-bottom: 30px;
             text-align: center;
             color: #1a1a2e;
         }
-
         section p {
             font-size: 1.1em;
             margin-bottom: 15px;
@@ -83,22 +95,18 @@
             margin-left: auto;
             margin-right: auto;
         }
-
         .problem-section {
             background: white;
         }
-
         .solution-section {
             background: #f8f9fa;
         }
-
         .features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
             margin-top: 40px;
         }
-
         .feature {
             background: white;
             padding: 30px;
@@ -106,17 +114,14 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             border-left: 4px solid #ff6b6b;
         }
-
         .feature h3 {
             font-size: 1.4em;
             margin-bottom: 15px;
             color: #1a1a2e;
         }
-
         .feature p {
             color: #666;
         }
-
         .timeline {
             background: white;
             padding: 40px;
@@ -124,23 +129,19 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             margin-top: 40px;
         }
-
         .timeline-item {
             margin-bottom: 30px;
             padding-bottom: 30px;
             border-bottom: 1px solid #eee;
         }
-
         .timeline-item:last-child {
             border-bottom: none;
         }
-
         .timeline-item h3 {
             color: #ff6b6b;
             font-size: 1.3em;
             margin-bottom: 10px;
         }
-
         .beta-signup {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             color: white;
@@ -148,27 +149,26 @@
             text-align: center;
             margin-top: 60px;
         }
-
         .beta-signup h2 {
             color: white;
             margin-bottom: 20px;
         }
-
         .beta-form {
             max-width: 500px;
             margin: 30px auto;
             display: flex;
             gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
-
         .beta-form input {
             flex: 1;
+            min-width: 200px;
             padding: 12px 15px;
             border: none;
             border-radius: 5px;
             font-size: 1em;
         }
-
         .beta-form button {
             padding: 12px 30px;
             background: #ff6b6b;
@@ -179,11 +179,9 @@
             cursor: pointer;
             transition: background 0.3s;
         }
-
         .beta-form button:hover {
             background: #ff5252;
         }
-
         footer {
             background: #1a1a2e;
             color: white;
@@ -191,161 +189,141 @@
             padding: 30px 20px;
             margin-top: 60px;
         }
-
         .links {
             margin: 20px 0;
         }
-
         .links a {
             color: #ff6b6b;
             text-decoration: none;
             margin: 0 15px;
         }
-
         .links a:hover {
             text-decoration: underline;
         }
-
         @media (max-width: 768px) {
-            header h1 {
-                font-size: 2em;
-            }
-
-            header p {
-                font-size: 1em;
-            }
-
-            section h2 {
-                font-size: 1.8em;
-            }
-
-            .beta-form {
-                flex-direction: column;
-            }
+            header h1 { font-size: 2em; }
+            header p { font-size: 1em; }
+            section h2 { font-size: 1.8em; }
+            .beta-form { flex-direction: column; }
+            .beta-form input, .beta-form button { width: 100%; min-width: unset; }
+            .language-selector { top: 10px; right: 10px; }
         }
     </style>
 </head>
 <body>
+    <div class="language-selector">
+        <select id="languageSelect" onchange="changeLanguage(this.value)">
+            <option value="en">🌐 English</option>
+            <option value="es">🇪🇸 Español</option>
+            <option value="fr">🇫🇷 Français</option>
+            <option value="de">🇩🇪 Deutsch</option>
+            <option value="ru">🇷🇺 Русский</option>
+            <option value="pt">🇵🇹 Português</option>
+            <option value="it">🇮🇹 Italiano</option>
+            <option value="zh">🇨🇳 中文</option>
+            <option value="ar">🇸🇦 العربية</option>
+            <option value="ja">🇯🇵 日本語</option>
+            <option value="tr">🇹🇷 Türkçe</option>
+            <option value="uk">🇺🇦 Українська</option>
+            <option value="pl">🇵🇱 Polski</option>
+        </select>
+    </div>
     <header>
         <h1>📰 Byline</h1>
-        <p>Secure messenger for journalists and their sources</p>
-        <p style="font-size: 0.95em; margin-top: -15px; opacity: 0.8;">Operational Security by Design</p>
-        <button class="cta-button" onclick="document.querySelector('#beta').scrollIntoView({behavior: 'smooth'})">
-            Join Closed Beta
-        </button>
+        <p data-i18n="header.tagline">Secure messenger for journalists and their sources</p>
+        <p style="font-size: 0.95em; margin-top: -15px; opacity: 0.8;" data-i18n="header.subtitle">Operational Security by Design</p>
+        <button class="cta-button" onclick="document.querySelector('#beta').scrollIntoView({behavior: 'smooth'})" data-i18n="header.cta">Join Closed Beta</button>
     </header>
-
     <section class="problem-section">
         <div class="container">
-            <h2>The Problem</h2>
-            <p>
-                <strong>March 2025:</strong> A journalist was accidentally added to a group chat containing classified US military plans.
-                The information was exposed. A National Security Advisor resigned.
-            </p>
-            <p>
-                <strong>The root cause:</strong> Signal's design doesn't enforce operational security.
-                Human error led to exposure, not a failure of cryptography.
-            </p>
-            <p style="margin-top: 25px; font-size: 1.2em; color: #ff6b6b; font-weight: 600;">
-                Byline is built so that operational security failures become impossible by design.
-            </p>
+            <h2 data-i18n="problem.title">The Problem</h2>
+            <p><strong data-i18n="problem.date">March 2025:</strong> <span data-i18n="problem.description">A journalist was accidentally added to a group chat containing classified US military plans. The information was exposed. A National Security Advisor resigned.</span></p>
+            <p><strong data-i18n="problem.cause">The root cause:</strong> <span data-i18n="problem.detail">Signal's design doesn't enforce operational security. Human error led to exposure, not a failure of cryptography.</span></p>
+            <p style="margin-top: 25px; font-size: 1.2em; color: #ff6b6b; font-weight: 600;" data-i18n="problem.solution">Byline is built so that operational security failures become impossible by design.</p>
         </div>
     </section>
-
     <section class="solution-section">
         <div class="container">
-            <h2>Why Byline?</h2>
-
+            <h2 data-i18n="solution.title">Why Byline?</h2>
             <div class="features">
                 <div class="feature">
-                    <h3>🔒 Operational Security by Design</h3>
-                    <p>Group actions are logged. Member additions are explicit and auditable. No silent surprises.</p>
+                    <h3>🔒 <span data-i18n="feature1.title">Operational Security by Design</span></h3>
+                    <p data-i18n="feature1.desc">Group actions are logged. Member additions are explicit and auditable. No silent surprises.</p>
                 </div>
                 <div class="feature">
-                    <h3>🔐 Military-Grade Encryption</h3>
-                    <p>Double Ratchet algorithm. End-to-end encryption. Perfect forward secrecy. Zero backdoors.</p>
+                    <h3>🔐 <span data-i18n="feature2.title">Military-Grade Encryption</span></h3>
+                    <p data-i18n="feature2.desc">Double Ratchet algorithm. End-to-end encryption. Perfect forward secrecy. Zero backdoors.</p>
                 </div>
                 <div class="feature">
-                    <h3>👁️ Zero Metadata</h3>
-                    <p>Server knows nothing. Not even who messaged whom. No logs. No tracking.</p>
+                    <h3>👁️ <span data-i18n="feature3.title">Zero Metadata</span></h3>
+                    <p data-i18n="feature3.desc">Server knows nothing. Not even who messaged whom. No logs. No tracking.</p>
                 </div>
                 <div class="feature">
-                    <h3>🆔 No Phone Number</h3>
-                    <p>Cryptographic identity only. Can't be deAnonymized through SIM card requests.</p>
+                    <h3>🆔 <span data-i18n="feature4.title">No Phone Number</span></h3>
+                    <p data-i18n="feature4.desc">Cryptographic identity only. Can't be deAnonymized through SIM card requests.</p>
                 </div>
                 <div class="feature">
-                    <h3>📖 Open Source</h3>
-                    <p>Full source code. Reproducible builds. Independent audits. Full transparency.</p>
+                    <h3>📖 <span data-i18n="feature5.title">Open Source</span></h3>
+                    <p data-i18n="feature5.desc">Full source code. Reproducible builds. Independent audits. Full transparency.</p>
                 </div>
                 <div class="feature">
-                    <h3>🚀 DPI Bypass (Coming v1.1)</h3>
-                    <p>Works where other messengers are blocked. Masquerades as normal HTTPS traffic.</p>
+                    <h3>🚀 <span data-i18n="feature6.title">DPI Bypass (Coming v1.1)</span></h3>
+                    <p data-i18n="feature6.desc">Works where other messengers are blocked. Masquerades as normal HTTPS traffic.</p>
                 </div>
             </div>
         </div>
     </section>
-
     <section class="problem-section">
         <div class="container">
-            <h2>Who Is This For?</h2>
-            <p style="text-align: center; font-size: 1.15em;">
-                Journalists, activists, and media organizations working in countries with press freedom restrictions.
-            </p>
-            <p style="text-align: center; margin-top: 20px;">
-                People who can't afford operational security mistakes.
-            </p>
+            <h2 data-i18n="audience.title">Who Is This For?</h2>
+            <p style="text-align: center; font-size: 1.15em;" data-i18n="audience.subtitle">Journalists, activists, and media organizations working in countries with press freedom restrictions.</p>
+            <p style="text-align: center; margin-top: 20px;" data-i18n="audience.detail">People who can't afford operational security mistakes.</p>
         </div>
     </section>
-
     <section class="solution-section">
         <div class="container">
-            <h2>Development Timeline</h2>
-
+            <h2 data-i18n="timeline.title">Development Timeline</h2>
             <div class="timeline">
                 <div class="timeline-item">
-                    <h3>🔧 Phase 1: MVP (Weeks 1-8)</h3>
-                    <p>Closed beta with 10-20 trusted testers. E2EE messaging + ops logging + device fingerprinting. Small team, rapid iteration.</p>
+                    <h3>🔧 <span data-i18n="timeline.phase1">Phase 1: MVP (Weeks 1-8)</span></h3>
+                    <p data-i18n="timeline.phase1.desc">Closed beta with 10-20 trusted testers. E2EE messaging + ops logging + device fingerprinting. Small team, rapid iteration.</p>
                 </div>
                 <div class="timeline-item">
-                    <h3>🔓 Phase 2: Public Beta (Week 9+)</h3>
-                    <p>GitHub open source release. DPI bypass integration (v1.1). Media announcements. Reproducible builds.</p>
+                    <h3>🔓 <span data-i18n="timeline.phase2">Phase 2: Public Beta (Week 9+)</span></h3>
+                    <p data-i18n="timeline.phase2.desc">GitHub open source release. DPI bypass integration (v1.1). Media announcements. Reproducible builds.</p>
                 </div>
                 <div class="timeline-item">
-                    <h3>🚀 Phase 3: Scale (Month 4+)</h3>
-                    <p>App Store submission. Media organization partnerships. Enterprise adoption. Sustainable growth.</p>
+                    <h3>🚀 <span data-i18n="timeline.phase3">Phase 3: Scale (Month 4+)</span></h3>
+                    <p data-i18n="timeline.phase3.desc">App Store submission. Media organization partnerships. Enterprise adoption. Sustainable growth.</p>
                 </div>
             </div>
         </div>
     </section>
-
     <section id="beta" class="beta-signup">
         <div class="container">
-            <h2>Join the Closed Beta</h2>
-            <p>We're looking for 10-20 journalists and activists to help shape Byline.</p>
-            <p>Personal contacts + media organization partnerships.</p>
-
+            <h2 data-i18n="beta.title">Join the Closed Beta</h2>
+            <p data-i18n="beta.description">We're looking for 10-20 journalists and activists to help shape Byline.</p>
+            <p data-i18n="beta.method">Personal contacts + media organization partnerships.</p>
             <form class="beta-form" action="https://formspree.io/f/mnjrzenl" method="POST">
-                <input type="email" name="email" placeholder="your@email.com" required>
-                <input type="text" name="organization" placeholder="Your organization (optional)">
-                <button type="submit">Get Early Access</button>
+                <input type="email" name="email" placeholder="your@email.com" data-i18n-placeholder="beta.email" required>
+                <input type="text" name="organization" placeholder="Your organization (optional)" data-i18n-placeholder="beta.org">
+                <button type="submit" data-i18n="beta.submit">Get Early Access</button>
             </form>
-
-            <p style="margin-top: 20px; font-size: 0.9em; opacity: 0.8;">
-                We'll reach out with next steps. NDA required.
-            </p>
+            <p style="margin-top: 20px; font-size: 0.9em; opacity: 0.8;" data-i18n="beta.note">We'll reach out with next steps. NDA required.</p>
         </div>
     </section>
-
     <footer>
         <p>&copy; 2026 Byline - Secure Messenger</p>
         <div class="links">
-            <a href="https://github.com/byline-messenger">GitHub</a>
-            <a href="#beta">Beta Signup</a>
-            <a href="mailto:hello@byline.app">Contact</a>
+            <a href="https://github.com/byline-messenger" data-i18n="footer.github">GitHub</a>
+            <a href="#beta" data-i18n="footer.beta">Beta Signup</a>
+            <a href="mailto:hello@byline.app" data-i18n="footer.contact">Contact</a>
         </div>
-        <p style="font-size: 0.9em; margin-top: 15px;">
-            Built with ❤️ for journalists and their sources.
-        </p>
+        <p style="font-size: 0.9em; margin-top: 15px;" data-i18n="footer.credit">Built with ❤️ for journalists and their sources.</p>
     </footer>
+    <script>
+        const translations = {en:{},ru:{},es:{},fr:{},de:{},pt:{},it:{},zh:{},ar:{},ja:{},tr:{},uk:{},pl:{}};
+        function changeLanguage(t){localStorage.setItem('bylineLanguage',t);document.documentElement.lang=t;document.querySelectorAll('[data-i18n]').forEach(e=>{const n=e.getAttribute('data-i18n');translations[t]&&translations[t][n]&&(e.textContent=translations[t][n])});document.querySelectorAll('[data-i18n-placeholder]').forEach(e=>{const n=e.getAttribute('data-i18n-placeholder');translations[t]&&translations[t][n]&&(e.placeholder=translations[t][n])})}window.addEventListener('DOMContentLoaded',()=>{let t=localStorage.getItem('bylineLanguage');if(!t){const e=navigator.language.split('-')[0];t=['en','es','fr','de','ru','pt','it','zh','ar','ja','tr','uk','pl'].includes(e)?e:'en'}document.getElementById('languageSelect').value=t;changeLanguage(t)});
+    </script>
 </body>
 </html>
