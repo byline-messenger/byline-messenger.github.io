@@ -689,8 +689,8 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <h1>Operational security, enforced by design.</h1>
-                <p class="hero-subtitle">Encryption protects messages in transit. Byline prevents catastrophic communication failures before they happen through enforced trust boundaries, hardware-bound sessions, and operational security controls.</p>
+                <h1 data-i18n="hero">Operational security, enforced by design.</h1>
+                <p class="hero-subtitle" data-i18n="hero-subtitle">Encryption protects messages in transit. Byline prevents catastrophic communication failures before they happen through enforced trust boundaries, hardware-bound sessions, and operational security controls.</p>
                 <div class="hero-ctas">
                     <button class="btn btn-primary" onclick="document.getElementById('beta').scrollIntoView({behavior: 'smooth'})">Request Access</button>
                     <a href="#architecture" class="btn btn-secondary">View Architecture</a>
@@ -1024,36 +1024,32 @@
     </div>
 
     <script>
-        // Language switching (minimal implementation)
+        const translations = {en:{hero:"Operational security, enforced by design.","hero-subtitle":"Encryption protects messages in transit. Byline prevents catastrophic communication failures before they happen through enforced trust boundaries, hardware-bound sessions, and operational security controls."},ru:{hero:"Оперативная безопасность по дизайну.","hero-subtitle":"Шифрование защищает сообщения в пути. Byline предотвращает катастрофические сбои в безопасности."},es:{hero:"Seguridad operativa, impuesta por diseño.","hero-subtitle":"El cifrado protege los mensajes en tránsito. Byline previene fallos catastróficos."},fr:{hero:"Sécurité opérationnelle, appliquée par la conception.","hero-subtitle":"Le chiffrement protège les messages en transit. Byline prévient les défaillances."},de:{hero:"Operative Sicherheit durch Design.","hero-subtitle":"Verschlüsselung schützt Nachrichten bei der Übertragung. Byline verhindert Sicherheitsfehler."},pt:{hero:"Segurança operacional, aplicada por design.","hero-subtitle":"A criptografia protege as mensagens em trânsito. Byline previne falhas."},it:{hero:"Sicurezza operativa, applicata da design.","hero-subtitle":"La crittografia protegge i messaggi in transito. Byline previene i guasti."},zh:{hero:"运营安全，通过设计执行。","hero-subtitle":"加密保护传输中的消息。Byline防止灾难性故障。"},ar:{hero:"الأمان التشغيلي، المطبق من خلال التصميم.","hero-subtitle":"يحمي التشفير الرسائل أثناء النقل. يمنع Byline الفشل."},ja:{hero:"オペレーショナルセキュリティ、設計によって実施。","hero-subtitle":"暗号化は転送中のメッセージを保護します。Byline障害を防ぎます。"},tr:{hero:"Operasyonel güvenlik, tasarım tarafından uygulanmıştır.","hero-subtitle":"Şifreleme, iletim sırasında mesajları korur. Byline hataları önler."},uk:{hero:"Оперативна безпека, забезпечена дизайном.","hero-subtitle":"Шифрування захищає повідомлення в дорозі. Byline запобігає відмовам."},pl:{hero:"Bezpieczeństwo operacyjne, egzekwowane przez projekt.","hero-subtitle":"Szyfrowanie chroni wiadomości w transicie. Byline zapobiega awariom."}};
+
         function switchLanguage(lang) {
             localStorage.setItem('byline-lang', lang);
-            // In production: fetch translations and update DOM
-            console.log('Language switched to:', lang);
+            document.documentElement.lang = lang;
+            const trans = translations[lang] || translations['en'];
+            Object.keys(trans).forEach(key => {
+                document.querySelectorAll(`[data-i18n="${key}"]`).forEach(el => {
+                    el.textContent = trans[key];
+                });
+            });
         }
 
-        // Restore saved language
-        const savedLang = localStorage.getItem('byline-lang') || 'en';
+        const savedLang = localStorage.getItem('byline-lang') || (navigator.language||'en').split('-')[0];
         document.getElementById('lang-select').value = savedLang;
+        switchLanguage(savedLang);
+        document.getElementById('lang-select').addEventListener('change', e => switchLanguage(e.target.value));
 
-        // Smooth scroll enhancement
         document.querySelectorAll('a[href^="#"]').forEach(link => {
-            link.addEventListener('click', (e) => {
+            link.addEventListener('click', e => {
                 const href = link.getAttribute('href');
-                if (href !== '#') {
+                if(href !== '#') {
                     e.preventDefault();
-                    document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+                    document.querySelector(href).scrollIntoView({behavior:'smooth'});
                 }
             });
-        });
-
-        // Header scroll effect
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.borderBottomColor = '#2a2a2a';
-            } else {
-                header.style.borderBottomColor = '#2a2a2a';
-            }
         });
     </script>
 </body>
