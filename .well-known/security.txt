@@ -1,4 +1,4 @@
-Contact: mailto:security@byline-messenger.com
+Contact: mailto:dmitrii_kh@icloud.com
 Expires: 2027-01-01T00:00:00.000Z
 Preferred-Languages: en, ru
 Canonical: https://byline-messenger.github.io/.well-known/security.txt
