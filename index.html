@@ -4,13 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Byline - Operational security infrastructure for high-trust communications. Prevent catastrophic communication failures by design.">
+
+    <!-- OG / Social -->
+    <meta property="og:title" content="Byline — Operational Security Infrastructure">
+    <meta property="og:description" content="Encryption protects messages in transit. Byline prevents catastrophic communication failures before they happen through enforced trust boundaries, hardware-bound sessions, and operational security controls.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://byline-messenger.github.io">
+    <meta property="og:image" content="https://byline-messenger.github.io/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Byline — Operational Security Infrastructure">
+    <meta name="twitter:description" content="Encryption protects messages in transit. Byline prevents catastrophic communication failures before they happen.">
+
+    <!-- Favicon (inline SVG) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%230f0f0f'/><text y='72' x='14' font-size='68'>🔐</text></svg>">
+
     <title>Byline - Operational Security Infrastructure</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
             --color-near-black: #0a0a0a;
@@ -22,6 +32,7 @@
             --color-text-tertiary: #808080;
             --color-accent: #0ea5e9;
             --color-alert: #ef4444;
+            --color-success: #22c55e;
             --spacing-xs: 8px;
             --spacing-sm: 16px;
             --spacing-md: 24px;
@@ -29,9 +40,7 @@
             --spacing-xl: 64px;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
@@ -41,972 +50,552 @@
             font-size: 16px;
         }
 
-        /* TYPOGRAPHY */
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 600;
-            line-height: 1.2;
-            letter-spacing: -0.02em;
-        }
+        h1 { font-size: 3.5rem; font-weight: 600; line-height: 1.2; letter-spacing: -0.02em; }
+        h2 { font-size: 2.25rem; font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; margin-bottom: var(--spacing-lg); }
+        h3 { font-size: 1.25rem; font-weight: 500; line-height: 1.4; }
+        p { font-size: 1rem; line-height: 1.7; color: var(--color-text-secondary); }
+        a { color: var(--color-accent); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+        a:hover { border-bottom-color: var(--color-accent); }
 
-        h2 {
-            font-size: 2.25rem;
-            font-weight: 600;
-            line-height: 1.3;
-            letter-spacing: -0.01em;
-            margin-bottom: var(--spacing-lg);
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 var(--spacing-lg); }
+        section { padding: var(--spacing-xl) 0; border-bottom: 1px solid var(--color-border); }
+        section:last-of-type { border-bottom: none; }
 
-        h3 {
-            font-size: 1.25rem;
-            font-weight: 500;
-            line-height: 1.4;
-            letter-spacing: 0;
-        }
-
-        p {
-            font-size: 1rem;
-            line-height: 1.7;
-            color: var(--color-text-secondary);
-        }
-
-        a {
-            color: var(--color-accent);
-            text-decoration: none;
-            border-bottom: 1px solid transparent;
-            transition: border-color 0.2s;
-        }
-
-        a:hover {
-            border-bottom-color: var(--color-accent);
-        }
-
-        /* LAYOUT */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 var(--spacing-lg);
-        }
-
-        section {
-            padding: var(--spacing-xl) 0;
-            border-bottom: 1px solid var(--color-border);
-        }
-
-        section:last-of-type {
-            border-bottom: none;
-        }
-
-        /* HEADER & NAV */
+        /* HEADER */
         header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(15, 15, 15, 0.95);
-            backdrop-filter: blur(8px);
+            position: fixed; top: 0; width: 100%;
+            background: rgba(15,15,15,0.95); backdrop-filter: blur(8px);
             border-bottom: 1px solid var(--color-border);
-            z-index: 1000;
-            padding: var(--spacing-md) 0;
+            z-index: 1000; padding: var(--spacing-md) 0;
         }
-
         .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 var(--spacing-lg);
+            display: flex; justify-content: space-between; align-items: center;
+            max-width: 1200px; margin: 0 auto; padding: 0 var(--spacing-lg);
         }
+        .logo { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.02em; }
 
-        .logo {
-            font-size: 1.25rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-        }
-
-        nav {
-            display: flex;
-            gap: var(--spacing-lg);
-            align-items: center;
-        }
-
-        nav a {
-            font-size: 0.95rem;
-            color: var(--color-text-secondary);
-            border-bottom: none;
-            transition: color 0.2s;
-        }
-
-        nav a:hover {
-            color: var(--color-text-primary);
-            border-bottom: none;
-        }
-
+        nav { display: flex; gap: var(--spacing-lg); align-items: center; }
+        nav a { font-size: 0.95rem; color: var(--color-text-secondary); border-bottom: none; transition: color 0.2s; }
+        nav a:hover { color: var(--color-text-primary); border-bottom: none; }
         .nav-cta {
-            background: var(--color-surface);
-            color: var(--color-accent);
+            background: var(--color-surface); color: var(--color-accent);
             padding: var(--spacing-sm) var(--spacing-md);
-            border: 1px solid var(--color-border);
-            border-radius: 2px;
-            transition: all 0.2s;
+            border: 1px solid var(--color-border); border-radius: 2px; transition: all 0.2s;
         }
+        .nav-cta:hover { background: var(--color-border); border-color: var(--color-accent); }
 
-        .nav-cta:hover {
-            background: var(--color-border);
-            border-color: var(--color-accent);
+        /* HAMBURGER */
+        .hamburger {
+            display: none; flex-direction: column; gap: 5px;
+            background: none; border: none; cursor: pointer; padding: 4px;
         }
+        .hamburger span { display: block; width: 22px; height: 2px; background: var(--color-text-primary); border-radius: 1px; transition: all 0.25s ease; }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
         /* HERO */
         .hero {
-            padding-top: 140px;
-            padding-bottom: var(--spacing-xl);
-            border-bottom: none;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            padding-top: 140px; padding-bottom: var(--spacing-xl);
+            border-bottom: none; min-height: 100vh;
+            display: flex; flex-direction: column; justify-content: center;
         }
-
-        .hero-content {
-            max-width: 800px;
-            margin-bottom: var(--spacing-xl);
-        }
-
-        .hero h1 {
-            margin-bottom: var(--spacing-md);
-        }
-
-        .hero-subtitle {
-            font-size: 1.2rem;
-            color: var(--color-text-secondary);
-            line-height: 1.7;
-            margin-bottom: var(--spacing-lg);
-        }
-
-        .hero-ctas {
-            display: flex;
-            gap: var(--spacing-md);
-            flex-wrap: wrap;
-        }
+        .hero-content { max-width: 800px; margin-bottom: var(--spacing-xl); }
+        .hero h1 { margin-bottom: var(--spacing-md); }
+        .hero-subtitle { font-size: 1.2rem; color: var(--color-text-secondary); line-height: 1.7; margin-bottom: var(--spacing-lg); }
+        .hero-ctas { display: flex; gap: var(--spacing-md); flex-wrap: wrap; }
 
         .btn {
-            padding: var(--spacing-sm) var(--spacing-lg);
-            border-radius: 2px;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: all 0.2s;
-            border: 1px solid transparent;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: var(--spacing-sm);
+            padding: var(--spacing-sm) var(--spacing-lg); border-radius: 2px;
+            font-weight: 500; font-size: 0.95rem; transition: all 0.2s;
+            border: 1px solid transparent; cursor: pointer;
+            display: inline-flex; align-items: center; gap: var(--spacing-sm);
+            text-decoration: none; border-bottom: none;
         }
-
-        .btn-primary {
-            background: var(--color-accent);
-            color: var(--color-near-black);
-            border-color: var(--color-accent);
-        }
-
-        .btn-primary:hover {
-            background: #0284c7;
-            border-color: #0284c7;
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--color-text-primary);
-            border-color: var(--color-border);
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--color-text-primary);
-            background: rgba(255, 255, 255, 0.05);
-        }
+        .btn:hover { border-bottom: none; }
+        .btn-primary { background: var(--color-accent); color: var(--color-near-black); border-color: var(--color-accent); }
+        .btn-primary:hover { background: #0284c7; border-color: #0284c7; }
+        .btn-secondary { background: transparent; color: var(--color-text-primary); border-color: var(--color-border); }
+        .btn-secondary:hover { border-color: var(--color-text-primary); background: rgba(255,255,255,0.05); }
 
         .hero-visual {
-            margin-top: var(--spacing-xl);
-            background: var(--color-surface);
-            border: 1px solid var(--color-border);
-            padding: var(--spacing-xl);
-            border-radius: 2px;
-            min-height: 400px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--color-text-tertiary);
-            font-size: 0.95rem;
-            position: relative;
-            overflow: hidden;
+            margin-top: var(--spacing-xl); background: var(--color-surface);
+            border: 1px solid var(--color-border); padding: var(--spacing-xl); border-radius: 2px;
+            min-height: 400px; display: flex; align-items: center; justify-content: center;
+            color: var(--color-text-tertiary); font-size: 0.95rem;
+            position: relative; overflow: hidden;
         }
-
         .hero-visual::before {
-            content: '';
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(14, 165, 233, 0.1) 0%, transparent 70%);
-            border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            content: ''; position: absolute; width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(14,165,233,0.1) 0%, transparent 70%);
+            border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%,-50%);
         }
-
         .hero-visual-content {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: var(--spacing-lg);
-            width: 100%;
-            max-width: 600px;
+            position: relative; z-index: 1; text-align: center;
+            display: grid; grid-template-columns: 1fr 1fr 1fr;
+            gap: var(--spacing-lg); width: 100%; max-width: 600px;
         }
-
         .node {
-            width: 60px;
-            height: 60px;
-            border: 1px solid var(--color-border);
-            border-radius: 2px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--color-text-tertiary);
-            font-size: 1.5rem;
+            width: 60px; height: 60px; border: 1px solid var(--color-border); border-radius: 2px;
+            margin: 0 auto; display: flex; align-items: center; justify-content: center;
+            color: var(--color-text-tertiary); font-size: 1.5rem;
         }
 
-        /* PROBLEM SECTION */
-        .problem {
-            background: var(--color-surface);
-            border-bottom: 1px solid var(--color-border);
-        }
-
-        .problem h2 {
-            color: var(--color-alert);
-            margin-bottom: var(--spacing-lg);
-        }
-
-        .incident-timeline {
-            max-width: 700px;
-            margin: 0 auto var(--spacing-xl);
-        }
-
+        /* PROBLEM */
+        .problem { background: var(--color-surface); border-bottom: 1px solid var(--color-border); }
+        .problem h2 { color: var(--color-alert); }
+        .incident-timeline { max-width: 700px; margin: 0 auto var(--spacing-xl); }
         .timeline-item {
-            padding: var(--spacing-md);
-            border-left: 2px solid var(--color-border);
-            margin-bottom: var(--spacing-md);
-            padding-left: var(--spacing-lg);
-            position: relative;
+            padding: var(--spacing-md); border-left: 2px solid var(--color-border);
+            margin-bottom: var(--spacing-md); padding-left: var(--spacing-lg); position: relative;
         }
-
         .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -5px;
-            top: 12px;
-            width: 8px;
-            height: 8px;
-            background: var(--color-alert);
-            border-radius: 2px;
+            content: ''; position: absolute; left: -5px; top: 12px;
+            width: 8px; height: 8px; background: var(--color-alert); border-radius: 2px;
         }
+        .timeline-item strong { color: var(--color-text-primary); display: block; margin-bottom: var(--spacing-xs); font-weight: 500; }
 
-        .timeline-item strong {
-            color: var(--color-text-primary);
-            display: block;
-            margin-bottom: var(--spacing-xs);
-            font-weight: 500;
-        }
-
-        /* SOLUTION CARDS */
-        .solution-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: var(--spacing-lg);
-            margin-bottom: var(--spacing-xl);
-        }
-
+        /* SOLUTION */
+        .solution-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--spacing-lg); margin-bottom: var(--spacing-xl); }
         .solution-card {
-            background: var(--color-surface);
-            border: 1px solid var(--color-border);
-            padding: var(--spacing-lg);
-            border-radius: 2px;
-            transition: all 0.2s;
-            position: relative;
+            background: var(--color-surface); border: 1px solid var(--color-border);
+            padding: var(--spacing-lg); border-radius: 2px; transition: all 0.2s;
         }
-
-        .solution-card:hover {
-            border-color: var(--color-accent);
-            background: rgba(14, 165, 233, 0.02);
-        }
-
+        .solution-card:hover { border-color: var(--color-accent); background: rgba(14,165,233,0.02); }
         .solution-card-icon {
-            font-size: 2rem;
-            margin-bottom: var(--spacing-md);
-            width: 48px;
-            height: 48px;
-            border: 1px solid var(--color-border);
-            border-radius: 2px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-size: 2rem; margin-bottom: var(--spacing-md);
+            width: 48px; height: 48px; border: 1px solid var(--color-border); border-radius: 2px;
+            display: flex; align-items: center; justify-content: center;
         }
+        .solution-card h3 { margin-bottom: var(--spacing-sm); color: var(--color-text-primary); }
+        .solution-card p { font-size: 0.95rem; line-height: 1.6; }
 
-        .solution-card h3 {
-            margin-bottom: var(--spacing-sm);
-            color: var(--color-text-primary);
-        }
-
-        .solution-card p {
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        /* WHY IT FAILS */
-        .failures-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: var(--spacing-lg);
-        }
-
-        .failure-item {
-            padding: var(--spacing-md);
-            border-left: 3px solid var(--color-alert);
-            background: rgba(239, 68, 68, 0.05);
-        }
-
-        .failure-item h3 {
-            color: var(--color-alert);
-            margin-bottom: var(--spacing-sm);
-            font-size: 1.1rem;
-        }
+        /* FAILURES */
+        .failures-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--spacing-lg); }
+        .failure-item { padding: var(--spacing-md); border-left: 3px solid var(--color-alert); background: rgba(239,68,68,0.05); }
+        .failure-item h3 { color: var(--color-alert); margin-bottom: var(--spacing-sm); font-size: 1.1rem; }
 
         /* THREAT MODEL */
-        .threat-model {
-            background: var(--color-surface);
-        }
-
-        .threat-columns {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--spacing-xl);
-            margin-bottom: var(--spacing-xl);
-        }
-
-        .threat-column h3 {
-            color: var(--color-accent);
-            margin-bottom: var(--spacing-lg);
-            font-size: 1.15rem;
-        }
-
-        .threat-list {
-            list-style: none;
-        }
-
+        .threat-model { background: var(--color-surface); }
+        .threat-columns { display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-xl); margin-bottom: var(--spacing-xl); }
+        .threat-column h3 { color: var(--color-accent); margin-bottom: var(--spacing-lg); font-size: 1.15rem; }
+        .threat-list { list-style: none; }
         .threat-list li {
-            padding: var(--spacing-sm) 0;
-            padding-left: var(--spacing-md);
-            border-bottom: 1px solid var(--color-border);
-            position: relative;
-            color: var(--color-text-secondary);
-            font-size: 0.95rem;
+            padding: var(--spacing-sm) 0; padding-left: var(--spacing-md);
+            border-bottom: 1px solid var(--color-border); position: relative;
+            color: var(--color-text-secondary); font-size: 0.95rem;
         }
-
-        .threat-list li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: var(--color-accent);
-            font-weight: bold;
-        }
-
-        .threat-list li:last-child {
-            border-bottom: none;
-        }
-
-        .nongrowth-list li::before {
-            content: '✗';
-            color: var(--color-text-tertiary);
-        }
+        .threat-list li::before { content: '✓'; position: absolute; left: 0; color: var(--color-accent); font-weight: bold; }
+        .threat-list li:last-child { border-bottom: none; }
+        .nongrowth-list li::before { content: '✗'; color: var(--color-text-tertiary); }
 
         /* AUDIENCE */
-        .audience-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: var(--spacing-md);
-        }
-
-        .audience-item {
-            padding: var(--spacing-md);
-            border: 1px solid var(--color-border);
-            text-align: center;
-            border-radius: 2px;
-        }
-
-        .audience-item strong {
-            color: var(--color-text-primary);
-            display: block;
-            margin-bottom: var(--spacing-xs);
-        }
+        .audience-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--spacing-md); }
+        .audience-item { padding: var(--spacing-md); border: 1px solid var(--color-border); text-align: center; border-radius: 2px; }
+        .audience-item strong { color: var(--color-text-primary); display: block; margin-bottom: var(--spacing-xs); }
 
         /* PHILOSOPHY */
         .philosophy-box {
-            background: var(--color-surface);
-            border: 1px solid var(--color-border);
-            padding: var(--spacing-lg);
-            border-radius: 2px;
-            font-size: 1.1rem;
-            line-height: 1.8;
-            font-style: italic;
-            color: var(--color-text-secondary);
-            max-width: 700px;
-            margin: 0 auto;
+            background: var(--color-surface); border: 1px solid var(--color-border);
+            padding: var(--spacing-lg); border-radius: 2px; font-size: 1.1rem;
+            line-height: 1.8; font-style: italic; color: var(--color-text-secondary);
+            max-width: 700px; margin: 0 auto;
         }
 
         /* ARCHITECTURE */
-        .architecture {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: var(--spacing-lg);
-        }
-
-        .arch-component {
-            background: var(--color-surface);
-            border: 1px solid var(--color-border);
-            padding: var(--spacing-lg);
-            border-radius: 2px;
-        }
-
-        .arch-component-name {
-            font-family: 'Monaco', 'Courier New', monospace;
-            font-size: 0.85rem;
-            color: var(--color-accent);
-            margin-bottom: var(--spacing-sm);
-            font-weight: 500;
-        }
-
-        .arch-component-title {
-            color: var(--color-text-primary);
-            margin-bottom: var(--spacing-sm);
-            font-weight: 500;
-        }
-
-        .arch-component-desc {
-            font-size: 0.95rem;
-            color: var(--color-text-secondary);
-            line-height: 1.6;
-        }
+        .architecture { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--spacing-lg); }
+        .arch-component { background: var(--color-surface); border: 1px solid var(--color-border); padding: var(--spacing-lg); border-radius: 2px; }
+        .arch-component-name { font-family: 'Monaco', 'Courier New', monospace; font-size: 0.85rem; color: var(--color-accent); margin-bottom: var(--spacing-sm); font-weight: 500; }
+        .arch-component-title { color: var(--color-text-primary); margin-bottom: var(--spacing-sm); font-weight: 500; }
+        .arch-component-desc { font-size: 0.95rem; color: var(--color-text-secondary); line-height: 1.6; }
 
         /* BETA FORM */
-        .beta-section {
-            background: var(--color-surface);
+        .beta-section { background: var(--color-surface); }
+        .beta-form { max-width: 500px; margin: 0 auto; }
+        .form-group { margin-bottom: var(--spacing-md); }
+        .form-group label { display: block; margin-bottom: var(--spacing-sm); color: var(--color-text-primary); font-weight: 500; font-size: 0.95rem; }
+        .form-group input, .form-group textarea {
+            width: 100%; padding: var(--spacing-md);
+            background: var(--color-bg); border: 1px solid var(--color-border); border-radius: 2px;
+            color: var(--color-text-primary); font-family: inherit; font-size: 1rem; transition: border-color 0.2s;
         }
+        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--color-accent); background: rgba(14,165,233,0.02); }
+        .form-group textarea { resize: vertical; min-height: 100px; }
+        .form-submit { width: 100%; }
+        .form-submit:disabled { opacity: 0.6; cursor: not-allowed; }
 
-        .beta-form {
-            max-width: 500px;
-            margin: 0 auto;
+        .form-status {
+            display: none; padding: var(--spacing-md); border-radius: 2px;
+            margin-bottom: var(--spacing-md); text-align: center; font-weight: 500;
         }
-
-        .form-group {
-            margin-bottom: var(--spacing-md);
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: var(--spacing-sm);
-            color: var(--color-text-primary);
-            font-weight: 500;
-            font-size: 0.95rem;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: var(--spacing-md);
-            background: var(--color-bg);
-            border: 1px solid var(--color-border);
-            border-radius: 2px;
-            color: var(--color-text-primary);
-            font-family: inherit;
-            font-size: 1rem;
-            transition: border-color 0.2s;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--color-accent);
-            background: rgba(14, 165, 233, 0.02);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .form-submit {
-            width: 100%;
-        }
+        .form-status.success { display: block; background: rgba(34,197,94,0.1); border: 1px solid var(--color-success); color: var(--color-success); }
+        .form-status.error   { display: block; background: rgba(239,68,68,0.1); border: 1px solid var(--color-alert); color: var(--color-alert); }
 
         /* FOOTER */
-        footer {
-            background: var(--color-surface);
-            border-top: 1px solid var(--color-border);
-            padding: var(--spacing-xl) 0;
-            margin-top: var(--spacing-xl);
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: var(--spacing-lg);
-            margin-bottom: var(--spacing-xl);
-        }
-
-        .footer-section h4 {
-            color: var(--color-text-primary);
-            margin-bottom: var(--spacing-md);
-            font-weight: 500;
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .footer-section a {
-            display: block;
-            margin-bottom: var(--spacing-sm);
-            color: var(--color-text-secondary);
-            font-size: 0.9rem;
-            border-bottom: none;
-        }
-
-        .footer-section a:hover {
-            color: var(--color-accent);
-        }
-
+        footer { background: var(--color-surface); border-top: 1px solid var(--color-border); padding: var(--spacing-xl) 0; margin-top: var(--spacing-xl); }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--spacing-lg); margin-bottom: var(--spacing-xl); }
+        .footer-section h4 { color: var(--color-text-primary); margin-bottom: var(--spacing-md); font-weight: 500; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .footer-section a { display: block; margin-bottom: var(--spacing-sm); color: var(--color-text-secondary); font-size: 0.9rem; border-bottom: none; }
+        .footer-section a:hover { color: var(--color-accent); }
         .footer-bottom {
-            border-top: 1px solid var(--color-border);
-            padding-top: var(--spacing-lg);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.85rem;
-            color: var(--color-text-tertiary);
+            border-top: 1px solid var(--color-border); padding-top: var(--spacing-lg);
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 0.85rem; color: var(--color-text-tertiary);
         }
-
-        .footer-bottom a {
-            border-bottom: none;
-        }
+        .footer-bottom a { border-bottom: none; }
 
         /* LANGUAGE SELECTOR */
         .language-selector {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 999;
-            background: var(--color-surface);
-            border: 1px solid var(--color-border);
-            border-radius: 2px;
-            overflow: hidden;
+            position: fixed; bottom: 20px; right: 20px; z-index: 999;
+            background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 2px; overflow: hidden;
         }
-
-        .language-selector select {
-            padding: var(--spacing-sm) var(--spacing-md);
-            background: transparent;
-            border: none;
-            color: var(--color-text-primary);
-            font-size: 0.9rem;
-            cursor: pointer;
-            font-family: inherit;
-        }
+        .language-selector select { padding: var(--spacing-sm) var(--spacing-md); background: transparent; border: none; color: var(--color-text-primary); font-size: 0.9rem; cursor: pointer; font-family: inherit; }
 
         /* RESPONSIVE */
         @media (max-width: 768px) {
             h1 { font-size: 2.25rem; }
             h2 { font-size: 1.75rem; }
 
-            nav { display: none; }
+            .hamburger { display: flex; }
 
-            .hero-visual-content {
-                grid-template-columns: 1fr;
+            nav {
+                display: none; position: fixed; top: 73px; left: 0; right: 0;
+                background: rgba(15,15,15,0.98); backdrop-filter: blur(8px);
+                flex-direction: column; align-items: stretch; gap: 0;
+                border-bottom: 1px solid var(--color-border); padding: var(--spacing-sm) 0;
             }
+            nav.open { display: flex; }
+            nav a { padding: var(--spacing-sm) var(--spacing-lg); font-size: 1rem; }
+            .nav-cta { margin: var(--spacing-sm) var(--spacing-lg); text-align: center; }
 
-            .threat-columns {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-ctas {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .footer-bottom {
-                flex-direction: column;
-                gap: var(--spacing-md);
-                text-align: center;
-            }
+            .hero-visual-content { grid-template-columns: 1fr; }
+            .threat-columns { grid-template-columns: 1fr; }
+            .hero-ctas { flex-direction: column; }
+            .btn { width: 100%; justify-content: center; }
+            .footer-bottom { flex-direction: column; gap: var(--spacing-md); text-align: center; }
         }
 
-        /* ANIMATIONS */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .solution-card, .threat-list li { animation: fadeIn 0.6s ease-out; }
 
-        .solution-card,
-        .threat-list li {
-            animation: fadeIn 0.6s ease-out;
-        }
-
-        /* UTILITY */
         .text-accent { color: var(--color-accent); }
-        .text-alert { color: var(--color-alert); }
+        .text-alert  { color: var(--color-alert); }
         .text-secondary { color: var(--color-text-secondary); }
-        .text-tertiary { color: var(--color-text-tertiary); }
-        .text-mono { font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9rem; }
+        .text-tertiary  { color: var(--color-text-tertiary); }
+        .text-mono { font-family: 'Monaco','Courier New',monospace; font-size: 0.9rem; }
         .divider { height: 1px; background: var(--color-border); margin: var(--spacing-lg) 0; }
     </style>
 </head>
 <body>
-    <!-- HEADER -->
+
     <header>
         <div class="header-content">
             <div class="logo">BYLINE</div>
-            <nav>
-                <a href="#architecture">Architecture</a>
-                <a href="#threat-model">Threat Model</a>
-                <a href="#philosophy">Philosophy</a>
-                <a href="#beta" class="nav-cta">Request Access</a>
+            <nav id="main-nav">
+                <a href="#architecture" data-i18n="nav-arch">Architecture</a>
+                <a href="#threat-model" data-i18n="nav-threat">Threat Model</a>
+                <a href="#philosophy" data-i18n="nav-phil">Philosophy</a>
+                <a href="#beta" class="nav-cta" data-i18n="nav-cta">Request Access</a>
             </nav>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </header>
 
-    <!-- HERO -->
     <section class="hero">
         <div class="container">
             <div class="hero-content">
                 <h1 data-i18n="hero">Operational security, enforced by design.</h1>
                 <p class="hero-subtitle" data-i18n="hero-subtitle">Encryption protects messages in transit. Byline prevents catastrophic communication failures before they happen through enforced trust boundaries, hardware-bound sessions, and operational security controls.</p>
                 <div class="hero-ctas">
-                    <button class="btn btn-primary" onclick="document.getElementById('beta').scrollIntoView({behavior: 'smooth'})">Request Access</button>
-                    <a href="#architecture" class="btn btn-secondary">View Architecture</a>
+                    <button class="btn btn-primary" onclick="document.getElementById('beta').scrollIntoView({behavior:'smooth'})" data-i18n="hero-cta-primary">Request Access</button>
+                    <a href="#architecture" class="btn btn-secondary" data-i18n="hero-cta-secondary">View Architecture</a>
                 </div>
             </div>
-
             <div class="hero-visual">
                 <div class="hero-visual-content">
                     <div>
                         <div class="node">🔐</div>
-                        <p style="margin-top: var(--spacing-sm); font-size: 0.85rem;">Identity</p>
+                        <p style="margin-top:var(--spacing-sm);font-size:0.85rem;" data-i18n="visual-identity">Identity</p>
                     </div>
                     <div>
                         <div class="node">🔗</div>
-                        <p style="margin-top: var(--spacing-sm); font-size: 0.85rem;">Session</p>
+                        <p style="margin-top:var(--spacing-sm);font-size:0.85rem;" data-i18n="visual-session">Session</p>
                     </div>
                     <div>
                         <div class="node">📦</div>
-                        <p style="margin-top: var(--spacing-sm); font-size: 0.85rem;">Message</p>
+                        <p style="margin-top:var(--spacing-sm);font-size:0.85rem;" data-i18n="visual-message">Message</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- PROBLEM: MARCH 2025 INCIDENT -->
     <section class="problem">
         <div class="container">
-            <h2>The March 2025 Operational Security Failure</h2>
+            <h2 data-i18n="problem-heading">The March 2025 Operational Security Failure</h2>
             <div class="incident-timeline">
-                <p>In March 2025, a catastrophic operational security failure exposed the limitations of encryption-first design. Encryption did not fail. The human system around encryption did.</p>
+                <p data-i18n="problem-intro">In March 2025, a catastrophic operational security failure exposed the limitations of encryption-first design. Encryption did not fail. The human system around encryption did.</p>
                 <div class="divider"></div>
                 <div class="timeline-item">
-                    <strong>The Problem</strong>
-                    <p>A source was added to a group conversation without explicit knowledge. The encrypted group existed, but no mechanism prevented silent addition of unvetted participants.</p>
+                    <strong data-i18n="t1-title">The Problem</strong>
+                    <p data-i18n="t1-text">A source was added to a group conversation without explicit knowledge. The encrypted group existed, but no mechanism prevented silent addition of unvetted participants.</p>
                 </div>
                 <div class="timeline-item">
-                    <strong>The Consequence</strong>
-                    <p>Operational security protocols were bypassed entirely. The group had no visibility into participant changes. No one could verify which devices were present.</p>
+                    <strong data-i18n="t2-title">The Consequence</strong>
+                    <p data-i18n="t2-text">Operational security protocols were bypassed entirely. The group had no visibility into participant changes. No one could verify which devices were present.</p>
                 </div>
                 <div class="timeline-item">
-                    <strong>The Lesson</strong>
-                    <p>Encryption solves transport security. But operational security requires control: visibility, consent, verification, and compartmentalization. Architecture must enforce these, not rely on human vigilance.</p>
+                    <strong data-i18n="t3-title">The Lesson</strong>
+                    <p data-i18n="t3-text">Encryption solves transport security. But operational security requires control: visibility, consent, verification, and compartmentalization. Architecture must enforce these, not rely on human vigilance.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- WHY MESSENGERS FAIL -->
     <section>
         <div class="container">
-            <h2>Why Modern Messengers Fail at Operational Security</h2>
+            <h2 data-i18n="failures-heading">Why Modern Messengers Fail at Operational Security</h2>
             <div class="failures-grid">
                 <div class="failure-item">
-                    <h3>Silent Participant Changes</h3>
-                    <p>No audit trail when users are added to groups. No notification to existing participants. No way to verify who is actually in the conversation.</p>
+                    <h3 data-i18n="f1-title">Silent Participant Changes</h3>
+                    <p data-i18n="f1-text">No audit trail when users are added to groups. No notification to existing participants. No way to verify who is actually in the conversation.</p>
                 </div>
                 <div class="failure-item">
-                    <h3>Unvetted Device Duplication</h3>
-                    <p>Sessions can be cloned to new devices without explicit authorization. Device verification is optional, not enforced.</p>
+                    <h3 data-i18n="f2-title">Unvetted Device Duplication</h3>
+                    <p data-i18n="f2-text">Sessions can be cloned to new devices without explicit authorization. Device verification is optional, not enforced.</p>
                 </div>
                 <div class="failure-item">
-                    <h3>Metadata Leakage</h3>
-                    <p>Server knows who messages whom, when, and how often. Metadata reveals patterns that expose operationally sensitive relationships.</p>
+                    <h3 data-i18n="f3-title">Metadata Leakage</h3>
+                    <p data-i18n="f3-text">Server knows who messages whom, when, and how often. Metadata reveals patterns that expose operationally sensitive relationships.</p>
                 </div>
                 <div class="failure-item">
-                    <h3>Human Configuration Mistakes</h3>
-                    <p>Misconfigured group settings, forgotten devices, unvetted participants. Systems assume users won't make mistakes, but they do.</p>
+                    <h3 data-i18n="f4-title">Human Configuration Mistakes</h3>
+                    <p data-i18n="f4-text">Misconfigured group settings, forgotten devices, unvetted participants. Systems assume users won't make mistakes, but they do.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SOLUTION: IMPOSSIBLE BY DESIGN -->
     <section id="architecture">
         <div class="container">
-            <h2>Impossible by Design</h2>
-            <p style="margin-bottom: var(--spacing-xl); color: var(--color-text-secondary); max-width: 700px;">Byline prevents operational security failures through enforced architecture. These guarantees are structural, not optional.</p>
-
+            <h2 data-i18n="solution-heading">Impossible by Design</h2>
+            <p style="margin-bottom:var(--spacing-xl);color:var(--color-text-secondary);max-width:700px;" data-i18n="solution-subtitle">Byline prevents operational security failures through enforced architecture. These guarantees are structural, not optional.</p>
             <div class="solution-grid">
                 <div class="solution-card">
                     <div class="solution-card-icon">🔄</div>
-                    <h3>Compartmentalized Conversations</h3>
-                    <p>Each conversation is cryptographically isolated. Sessions cannot leak between groups. Metadata about one conversation reveals nothing about others.</p>
+                    <h3 data-i18n="sol-1-title">Compartmentalized Conversations</h3>
+                    <p data-i18n="sol-1-text">Each conversation is cryptographically isolated. Sessions cannot leak between groups. Metadata about one conversation reveals nothing about others.</p>
                 </div>
-
                 <div class="solution-card">
                     <div class="solution-card-icon">📱</div>
-                    <h3>Hardware-Bound Sessions</h3>
-                    <p>Sessions are tied to specific devices. Adding new devices requires explicit authorization. Silent synchronization is impossible by design.</p>
+                    <h3 data-i18n="sol-2-title">Hardware-Bound Sessions</h3>
+                    <p data-i18n="sol-2-text">Sessions are tied to specific devices. Adding new devices requires explicit authorization. Silent synchronization is impossible by design.</p>
                 </div>
-
                 <div class="solution-card">
                     <div class="solution-card-icon">👥</div>
-                    <h3>Mandatory Participant Visibility</h3>
-                    <p>Every participant change is logged and visible to all group members. Adding someone requires explicit consent. No silent additions.</p>
+                    <h3 data-i18n="sol-3-title">Mandatory Participant Visibility</h3>
+                    <p data-i18n="sol-3-text">Every participant change is logged and visible to all group members. Adding someone requires explicit consent. No silent additions.</p>
                 </div>
-
                 <div class="solution-card">
                     <div class="solution-card-icon">🔐</div>
-                    <h3>Cryptographic Identity Verification</h3>
-                    <p>Identities are hardware-bound and cryptographically verifiable. Spoofing requires compromising the device itself, not just the application.</p>
+                    <h3 data-i18n="sol-4-title">Cryptographic Identity Verification</h3>
+                    <p data-i18n="sol-4-text">Identities are hardware-bound and cryptographically verifiable. Spoofing requires compromising the device itself, not just the application.</p>
                 </div>
-
                 <div class="solution-card">
                     <div class="solution-card-icon">🎯</div>
-                    <h3>Zero Metadata Relay</h3>
-                    <p>The server knows nothing about participants, timing, frequency, or relationships. End-to-end encryption extends to metadata.</p>
+                    <h3 data-i18n="sol-5-title">Zero Metadata Relay</h3>
+                    <p data-i18n="sol-5-text">The server knows nothing about participants, timing, frequency, or relationships. End-to-end encryption extends to metadata.</p>
                 </div>
-
                 <div class="solution-card">
                     <div class="solution-card-icon">🚫</div>
-                    <h3>Restricted Message Export</h3>
-                    <p>Messages cannot be forwarded or exported by default. Sharing sensitive content requires explicit authorization per recipient.</p>
+                    <h3 data-i18n="sol-6-title">Restricted Message Export</h3>
+                    <p data-i18n="sol-6-text">Messages cannot be forwarded or exported by default. Sharing sensitive content requires explicit authorization per recipient.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- THREAT MODEL -->
     <section class="threat-model" id="threat-model">
         <div class="container">
-            <h2>Threat Model</h2>
-            <p style="margin-bottom: var(--spacing-xl); color: var(--color-text-secondary);">Byline is designed to protect against specific, realistic threats in high-risk environments. Explicit about what it does and does not protect against.</p>
-
+            <h2 data-i18n="threat-heading">Threat Model</h2>
+            <p style="margin-bottom:var(--spacing-xl);color:var(--color-text-secondary);" data-i18n="threat-subtitle">Byline is designed to protect against specific, realistic threats in high-risk environments. Explicit about what it does and does not protect against.</p>
             <div class="threat-columns">
                 <div>
-                    <h3>Protects Against</h3>
+                    <h3 data-i18n="threat-pro-heading">Protects Against</h3>
                     <ul class="threat-list">
-                        <li>Accidental participant exposure</li>
-                        <li>Unauthorized session duplication</li>
-                        <li>Compromised endpoint propagation</li>
-                        <li>Metadata correlation attacks</li>
-                        <li>Silent group membership changes</li>
-                        <li>Server-side surveillance</li>
-                        <li>Message tampering in transit</li>
-                        <li>Device impersonation</li>
+                        <li data-i18n="tp-1">Accidental participant exposure</li>
+                        <li data-i18n="tp-2">Unauthorized session duplication</li>
+                        <li data-i18n="tp-3">Compromised endpoint propagation</li>
+                        <li data-i18n="tp-4">Metadata correlation attacks</li>
+                        <li data-i18n="tp-5">Silent group membership changes</li>
+                        <li data-i18n="tp-6">Server-side surveillance</li>
+                        <li data-i18n="tp-7">Message tampering in transit</li>
+                        <li data-i18n="tp-8">Device impersonation</li>
                     </ul>
                 </div>
-
                 <div>
-                    <h3>Does Not Protect Against</h3>
+                    <h3 data-i18n="threat-con-heading">Does Not Protect Against</h3>
                     <ul class="threat-list nongrowth-list">
-                        <li>Physical device seizure</li>
-                        <li>Hardware implants or keyloggers</li>
-                        <li>Kernel-level compromise</li>
-                        <li>Physical coercion</li>
-                        <li>Malicious device firmware</li>
-                        <li>Government backdoor mandates</li>
-                        <li>User-initiated disclosure</li>
+                        <li data-i18n="tn-1">Physical device seizure</li>
+                        <li data-i18n="tn-2">Hardware implants or keyloggers</li>
+                        <li data-i18n="tn-3">Kernel-level compromise</li>
+                        <li data-i18n="tn-4">Physical coercion</li>
+                        <li data-i18n="tn-5">Malicious device firmware</li>
+                        <li data-i18n="tn-6">Government backdoor mandates</li>
+                        <li data-i18n="tn-7">User-initiated disclosure</li>
                     </ul>
                 </div>
             </div>
-
-            <p style="color: var(--color-text-secondary); font-size: 0.95rem;">Byline assumes a resourceful but rational adversary. It assumes users may eventually make operational security mistakes. The platform makes such mistakes impossible to execute catastrophically.</p>
+            <p style="color:var(--color-text-secondary);font-size:0.95rem;" data-i18n="threat-note">Byline assumes a resourceful but rational adversary. It assumes users may eventually make operational security mistakes. The platform makes such mistakes impossible to execute catastrophically.</p>
         </div>
     </section>
 
-    <!-- AUDIENCE -->
     <section>
         <div class="container">
-            <h2>Built for High-Risk Environments</h2>
-            <p style="margin-bottom: var(--spacing-xl); color: var(--color-text-secondary); max-width: 700px;">Byline is designed for organizations operating in environments where operational security is existential.</p>
-
+            <h2 data-i18n="audience-heading">Built for High-Risk Environments</h2>
+            <p style="margin-bottom:var(--spacing-xl);color:var(--color-text-secondary);max-width:700px;" data-i18n="audience-subtitle">Byline is designed for organizations operating in environments where operational security is existential.</p>
             <div class="audience-list">
                 <div class="audience-item">
-                    <strong>Investigative Journalism</strong>
-                    <p style="font-size: 0.9rem;">Protect sources. Compartmentalize investigations. Audit participant changes.</p>
+                    <strong data-i18n="au-1-title">Investigative Journalism</strong>
+                    <p style="font-size:0.9rem;" data-i18n="au-1-text">Protect sources. Compartmentalize investigations. Audit participant changes.</p>
                 </div>
                 <div class="audience-item">
-                    <strong>Executive Communications</strong>
-                    <p style="font-size: 0.9rem;">Confidential board decisions. Verified participant access. No metadata exposure.</p>
+                    <strong data-i18n="au-2-title">Executive Communications</strong>
+                    <p style="font-size:0.9rem;" data-i18n="au-2-text">Confidential board decisions. Verified participant access. No metadata exposure.</p>
                 </div>
                 <div class="audience-item">
-                    <strong>Incident Response</strong>
-                    <p style="font-size: 0.9rem;">Secure coordination. Device-bound sessions. Full audit trail.</p>
+                    <strong data-i18n="au-3-title">Incident Response</strong>
+                    <p style="font-size:0.9rem;" data-i18n="au-3-text">Secure coordination. Device-bound sessions. Full audit trail.</p>
                 </div>
                 <div class="audience-item">
-                    <strong>Defense Contractors</strong>
-                    <p style="font-size: 0.9rem;">Compliance-grade communications. Hardware-bound identity. Metadata minimization.</p>
+                    <strong data-i18n="au-4-title">Defense Contractors</strong>
+                    <p style="font-size:0.9rem;" data-i18n="au-4-text">Compliance-grade communications. Hardware-bound identity. Metadata minimization.</p>
                 </div>
                 <div class="audience-item">
-                    <strong>Intelligence Operations</strong>
-                    <p style="font-size: 0.9rem;">Compartmented access. Cryptographic verification. Zero server knowledge.</p>
+                    <strong data-i18n="au-5-title">Intelligence Operations</strong>
+                    <p style="font-size:0.9rem;" data-i18n="au-5-text">Compartmented access. Cryptographic verification. Zero server knowledge.</p>
                 </div>
                 <div class="audience-item">
-                    <strong>Critical Infrastructure</strong>
-                    <p style="font-size: 0.9rem;">Secure coordination across teams. Temporal compartmentalization. Audit compliance.</p>
+                    <strong data-i18n="au-6-title">Critical Infrastructure</strong>
+                    <p style="font-size:0.9rem;" data-i18n="au-6-text">Secure coordination across teams. Temporal compartmentalization. Audit compliance.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- PHILOSOPHY -->
     <section id="philosophy">
         <div class="container">
-            <h2>Design Philosophy</h2>
+            <h2 data-i18n="phil-heading">Design Philosophy</h2>
             <div class="philosophy-box">
-                "Byline assumes users will eventually make operational security mistakes. The system is designed to make those mistakes impossible to execute catastrophically. Security cannot depend on perfect human behavior. It must be enforced by architecture."
+                <span data-i18n="phil-quote">"Byline assumes users will eventually make operational security mistakes. The system is designed to make those mistakes impossible to execute catastrophically. Security cannot depend on perfect human behavior. It must be enforced by architecture."</span>
             </div>
         </div>
     </section>
 
-    <!-- ARCHITECTURE OVERVIEW -->
     <section>
         <div class="container">
-            <h2>Technical Architecture</h2>
-            <p style="margin-bottom: var(--spacing-xl); color: var(--color-text-secondary);">Minimal dependencies. Maximum control. Transparency in design.</p>
-
+            <h2 data-i18n="arch-heading">Technical Architecture</h2>
+            <p style="margin-bottom:var(--spacing-xl);color:var(--color-text-secondary);" data-i18n="arch-subtitle">Minimal dependencies. Maximum control. Transparency in design.</p>
             <div class="architecture">
                 <div class="arch-component">
                     <div class="arch-component-name">transport/</div>
-                    <div class="arch-component-title">Zero-Knowledge Relay</div>
-                    <div class="arch-component-desc">Messages routed through relay servers that know nothing about participants, timing, or relationships. VLESS + REALITY masking prevents network-level surveillance.</div>
+                    <div class="arch-component-title" data-i18n="arch-1-title">Zero-Knowledge Relay</div>
+                    <div class="arch-component-desc" data-i18n="arch-1-text">Messages routed through relay servers that know nothing about participants, timing, or relationships. VLESS + REALITY masking prevents network-level surveillance.</div>
                 </div>
-
                 <div class="arch-component">
                     <div class="arch-component-name">crypto/</div>
-                    <div class="arch-component-title">Double Ratchet Algorithm</div>
-                    <div class="arch-component-desc">Per-message key evolution. Forward secrecy guaranteed. Message authentication via AEAD (ChaCha20-Poly1305). No key reuse.</div>
+                    <div class="arch-component-title" data-i18n="arch-2-title">Double Ratchet Algorithm</div>
+                    <div class="arch-component-desc" data-i18n="arch-2-text">Per-message key evolution. Forward secrecy guaranteed. Message authentication via AEAD (ChaCha20-Poly1305). No key reuse.</div>
                 </div>
-
                 <div class="arch-component">
                     <div class="arch-component-name">identity/</div>
-                    <div class="arch-component-title">Hardware-Bound Keys</div>
-                    <div class="arch-component-desc">Ed25519 keys derived from BIP39 seed phrases. Keys never leave device. Recovery via cryptographic proof, not passwords.</div>
+                    <div class="arch-component-title" data-i18n="arch-3-title">Hardware-Bound Keys</div>
+                    <div class="arch-component-desc" data-i18n="arch-3-text">Ed25519 keys derived from BIP39 seed phrases. Keys never leave device. Recovery via cryptographic proof, not passwords.</div>
                 </div>
-
                 <div class="arch-component">
                     <div class="arch-component-name">storage/</div>
-                    <div class="arch-component-title">Encrypted Local Database</div>
-                    <div class="arch-component-desc">SQLCipher with AES-256. All local state encrypted. No plaintext logs. Message history stored locally, never on server.</div>
+                    <div class="arch-component-title" data-i18n="arch-4-title">Encrypted Local Database</div>
+                    <div class="arch-component-desc" data-i18n="arch-4-text">SQLCipher with AES-256. All local state encrypted. No plaintext logs. Message history stored locally, never on server.</div>
                 </div>
-
                 <div class="arch-component">
                     <div class="arch-component-name">groups/</div>
-                    <div class="arch-component-title">Ops Logging</div>
-                    <div class="arch-component-desc">Every group membership change is logged and visible. Who added whom. When. Device fingerprints. Full audit trail immutable in group state.</div>
+                    <div class="arch-component-title" data-i18n="arch-5-title">Ops Logging</div>
+                    <div class="arch-component-desc" data-i18n="arch-5-text">Every group membership change is logged and visible. Who added whom. When. Device fingerprints. Full audit trail immutable in group state.</div>
                 </div>
-
                 <div class="arch-component">
                     <div class="arch-component-name">ui/</div>
-                    <div class="arch-component-title">Trust-First Interface</div>
-                    <div class="arch-component-desc">No hidden background processes. No silent additions. Every action requires explicit user confirmation. Cryptographic verification results always visible.</div>
+                    <div class="arch-component-title" data-i18n="arch-6-title">Trust-First Interface</div>
+                    <div class="arch-component-desc" data-i18n="arch-6-text">No hidden background processes. No silent additions. Every action requires explicit user confirmation. Cryptographic verification results always visible.</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- BETA SIGNUP -->
     <section class="beta-section" id="beta">
         <div class="container">
-            <h2>Request Access to Closed Beta</h2>
-            <p style="margin-bottom: var(--spacing-lg); text-align: center; color: var(--color-text-secondary);">Byline is in closed beta. We're recruiting a small group of operators, journalists, and security researchers to validate the architecture.</p>
-
-            <form class="beta-form" action="https://formspree.io/f/mnjrzenl" method="POST">
+            <h2 data-i18n="beta-heading">Request Access to Closed Beta</h2>
+            <p style="margin-bottom:var(--spacing-lg);text-align:center;color:var(--color-text-secondary);" data-i18n="beta-subtitle">Byline is in closed beta. We're recruiting a small group of operators, journalists, and security researchers to validate the architecture.</p>
+            <form class="beta-form" id="beta-form" action="https://formspree.io/f/mnjrzenl" method="POST">
+                <div class="form-status" id="form-success" data-i18n="form-success">Thank you! We'll be in touch soon.</div>
+                <div class="form-status" id="form-error" data-i18n="form-error">Something went wrong. Please try again or email hello@byline-messenger.com</div>
                 <div class="form-group">
-                    <label for="name">Name</label>
+                    <label for="name" data-i18n="form-name">Name</label>
                     <input type="text" id="name" name="name" required>
                 </div>
-
                 <div class="form-group">
-                    <label for="email">Email</label>
+                    <label for="email" data-i18n="form-email">Email</label>
                     <input type="email" id="email" name="email" required>
                 </div>
-
                 <div class="form-group">
-                    <label for="organization">Organization (Optional)</label>
+                    <label for="organization" data-i18n="form-org">Organization (Optional)</label>
                     <input type="text" id="organization" name="organization">
                 </div>
-
                 <div class="form-group">
-                    <label for="context">Context: Why are you interested?</label>
-                    <textarea id="context" name="context" placeholder="Tell us about your operational security needs..."></textarea>
+                    <label for="context" data-i18n="form-context">Context: Why are you interested?</label>
+                    <textarea id="context" name="context" data-i18n-placeholder="form-placeholder" placeholder="Tell us about your operational security needs..."></textarea>
                 </div>
-
-                <button type="submit" class="btn btn-primary form-submit">Send Request</button>
+                <button type="submit" class="btn btn-primary form-submit" id="form-btn" data-i18n="form-submit">Send Request</button>
             </form>
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h4>Documentation</h4>
-                    <a href="#architecture">Architecture</a>
-                    <a href="#threat-model">Threat Model</a>
-                    <a href="#philosophy">Philosophy</a>
+                    <h4 data-i18n="footer-docs-heading">Documentation</h4>
+                    <a href="#architecture" data-i18n="footer-docs-arch">Architecture</a>
+                    <a href="#threat-model" data-i18n="footer-docs-threat">Threat Model</a>
+                    <a href="#philosophy" data-i18n="footer-docs-phil">Philosophy</a>
                 </div>
                 <div class="footer-section">
-                    <h4>Security</h4>
-                    <a href="https://github.com/byline-messenger">GitHub</a>
-                    <a href="#">Security.txt</a>
-                    <a href="#">Responsible Disclosure</a>
+                    <h4 data-i18n="footer-sec-heading">Security</h4>
+                    <a href="https://github.com/byline-messenger/byline-messenger.github.io" target="_blank" rel="noopener">GitHub</a>
+                    <a href="/.well-known/security.txt">Security.txt</a>
+                    <a href="mailto:security@byline-messenger.com" data-i18n="footer-sec-disclosure">Responsible Disclosure</a>
                 </div>
                 <div class="footer-section">
-                    <h4>Contact</h4>
-                    <a href="mailto:hello@byline-messenger.com">Email</a>
-                    <a href="#">PGP Key</a>
-                    <a href="#">Status</a>
+                    <h4 data-i18n="footer-contact-heading">Contact</h4>
+                    <a href="mailto:hello@byline-messenger.com" data-i18n="footer-email">Email</a>
+                    <a href="mailto:security@byline-messenger.com?subject=PGP%20Key%20Request" data-i18n="footer-pgp">PGP Key</a>
+                    <a href="https://github.com/byline-messenger/byline-messenger.github.io/issues" target="_blank" rel="noopener" data-i18n="footer-status">Status</a>
                 </div>
             </div>
             <div class="footer-bottom">
-                <div>© 2026 Byline Communications. Operational security by design.</div>
+                <div data-i18n="footer-copy">© 2026 Byline Communications. Operational security by design.</div>
                 <div>
-                    <a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="#">Disclosure</a>
+                    <a href="mailto:legal@byline-messenger.com?subject=Privacy" data-i18n="footer-privacy">Privacy</a> ·
+                    <a href="mailto:legal@byline-messenger.com?subject=Terms" data-i18n="footer-terms">Terms</a> ·
+                    <a href="mailto:security@byline-messenger.com?subject=Disclosure" data-i18n="footer-disclosure">Disclosure</a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- LANGUAGE SELECTOR -->
     <div class="language-selector">
-        <select id="lang-select" onchange="switchLanguage(this.value)">
+        <select id="lang-select">
             <option value="en">English</option>
             <option value="ru">Русский</option>
             <option value="es">Español</option>
@@ -1023,34 +612,378 @@
         </select>
     </div>
 
-    <script>
-        const translations = {en:{hero:"Operational security, enforced by design.","hero-subtitle":"Encryption protects messages in transit. Byline prevents catastrophic communication failures before they happen through enforced trust boundaries, hardware-bound sessions, and operational security controls."},ru:{hero:"Оперативная безопасность по дизайну.","hero-subtitle":"Шифрование защищает сообщения в пути. Byline предотвращает катастрофические сбои в безопасности."},es:{hero:"Seguridad operativa, impuesta por diseño.","hero-subtitle":"El cifrado protege los mensajes en tránsito. Byline previene fallos catastróficos."},fr:{hero:"Sécurité opérationnelle, appliquée par la conception.","hero-subtitle":"Le chiffrement protège les messages en transit. Byline prévient les défaillances."},de:{hero:"Operative Sicherheit durch Design.","hero-subtitle":"Verschlüsselung schützt Nachrichten bei der Übertragung. Byline verhindert Sicherheitsfehler."},pt:{hero:"Segurança operacional, aplicada por design.","hero-subtitle":"A criptografia protege as mensagens em trânsito. Byline previne falhas."},it:{hero:"Sicurezza operativa, applicata da design.","hero-subtitle":"La crittografia protegge i messaggi in transito. Byline previene i guasti."},zh:{hero:"运营安全，通过设计执行。","hero-subtitle":"加密保护传输中的消息。Byline防止灾难性故障。"},ar:{hero:"الأمان التشغيلي، المطبق من خلال التصميم.","hero-subtitle":"يحمي التشفير الرسائل أثناء النقل. يمنع Byline الفشل."},ja:{hero:"オペレーショナルセキュリティ、設計によって実施。","hero-subtitle":"暗号化は転送中のメッセージを保護します。Byline障害を防ぎます。"},tr:{hero:"Operasyonel güvenlik, tasarım tarafından uygulanmıştır.","hero-subtitle":"Şifreleme, iletim sırasında mesajları korur. Byline hataları önler."},uk:{hero:"Оперативна безпека, забезпечена дизайном.","hero-subtitle":"Шифрування захищає повідомлення в дорозі. Byline запобігає відмовам."},pl:{hero:"Bezpieczeństwo operacyjne, egzekwowane przez projekt.","hero-subtitle":"Szyfrowanie chroni wiadomości w transicie. Byline zapobiega awariom."}};
+<script>
+// ─── TRANSLATIONS ─────────────────────────────────────────────────────────────
+const T = {
+  en:{
+    "nav-arch":"Architecture","nav-threat":"Threat Model","nav-phil":"Philosophy","nav-cta":"Request Access",
+    "hero":"Operational security, enforced by design.",
+    "hero-subtitle":"Encryption protects messages in transit. Byline prevents catastrophic communication failures before they happen through enforced trust boundaries, hardware-bound sessions, and operational security controls.",
+    "hero-cta-primary":"Request Access","hero-cta-secondary":"View Architecture",
+    "visual-identity":"Identity","visual-session":"Session","visual-message":"Message",
+    "problem-heading":"The March 2025 Operational Security Failure",
+    "problem-intro":"In March 2025, a catastrophic operational security failure exposed the limitations of encryption-first design. Encryption did not fail. The human system around encryption did.",
+    "t1-title":"The Problem","t1-text":"A source was added to a group conversation without explicit knowledge. The encrypted group existed, but no mechanism prevented silent addition of unvetted participants.",
+    "t2-title":"The Consequence","t2-text":"Operational security protocols were bypassed entirely. The group had no visibility into participant changes. No one could verify which devices were present.",
+    "t3-title":"The Lesson","t3-text":"Encryption solves transport security. But operational security requires control: visibility, consent, verification, and compartmentalization. Architecture must enforce these, not rely on human vigilance.",
+    "failures-heading":"Why Modern Messengers Fail at Operational Security",
+    "f1-title":"Silent Participant Changes","f1-text":"No audit trail when users are added to groups. No notification to existing participants. No way to verify who is actually in the conversation.",
+    "f2-title":"Unvetted Device Duplication","f2-text":"Sessions can be cloned to new devices without explicit authorization. Device verification is optional, not enforced.",
+    "f3-title":"Metadata Leakage","f3-text":"Server knows who messages whom, when, and how often. Metadata reveals patterns that expose operationally sensitive relationships.",
+    "f4-title":"Human Configuration Mistakes","f4-text":"Misconfigured group settings, forgotten devices, unvetted participants. Systems assume users won't make mistakes, but they do.",
+    "solution-heading":"Impossible by Design",
+    "solution-subtitle":"Byline prevents operational security failures through enforced architecture. These guarantees are structural, not optional.",
+    "sol-1-title":"Compartmentalized Conversations","sol-1-text":"Each conversation is cryptographically isolated. Sessions cannot leak between groups. Metadata about one conversation reveals nothing about others.",
+    "sol-2-title":"Hardware-Bound Sessions","sol-2-text":"Sessions are tied to specific devices. Adding new devices requires explicit authorization. Silent synchronization is impossible by design.",
+    "sol-3-title":"Mandatory Participant Visibility","sol-3-text":"Every participant change is logged and visible to all group members. Adding someone requires explicit consent. No silent additions.",
+    "sol-4-title":"Cryptographic Identity Verification","sol-4-text":"Identities are hardware-bound and cryptographically verifiable. Spoofing requires compromising the device itself, not just the application.",
+    "sol-5-title":"Zero Metadata Relay","sol-5-text":"The server knows nothing about participants, timing, frequency, or relationships. End-to-end encryption extends to metadata.",
+    "sol-6-title":"Restricted Message Export","sol-6-text":"Messages cannot be forwarded or exported by default. Sharing sensitive content requires explicit authorization per recipient.",
+    "threat-heading":"Threat Model",
+    "threat-subtitle":"Byline is designed to protect against specific, realistic threats in high-risk environments. Explicit about what it does and does not protect against.",
+    "threat-pro-heading":"Protects Against","threat-con-heading":"Does Not Protect Against",
+    "tp-1":"Accidental participant exposure","tp-2":"Unauthorized session duplication","tp-3":"Compromised endpoint propagation",
+    "tp-4":"Metadata correlation attacks","tp-5":"Silent group membership changes","tp-6":"Server-side surveillance",
+    "tp-7":"Message tampering in transit","tp-8":"Device impersonation",
+    "tn-1":"Physical device seizure","tn-2":"Hardware implants or keyloggers","tn-3":"Kernel-level compromise",
+    "tn-4":"Physical coercion","tn-5":"Malicious device firmware","tn-6":"Government backdoor mandates","tn-7":"User-initiated disclosure",
+    "threat-note":"Byline assumes a resourceful but rational adversary. It assumes users may eventually make operational security mistakes. The platform makes such mistakes impossible to execute catastrophically.",
+    "audience-heading":"Built for High-Risk Environments",
+    "audience-subtitle":"Byline is designed for organizations operating in environments where operational security is existential.",
+    "au-1-title":"Investigative Journalism","au-1-text":"Protect sources. Compartmentalize investigations. Audit participant changes.",
+    "au-2-title":"Executive Communications","au-2-text":"Confidential board decisions. Verified participant access. No metadata exposure.",
+    "au-3-title":"Incident Response","au-3-text":"Secure coordination. Device-bound sessions. Full audit trail.",
+    "au-4-title":"Defense Contractors","au-4-text":"Compliance-grade communications. Hardware-bound identity. Metadata minimization.",
+    "au-5-title":"Intelligence Operations","au-5-text":"Compartmented access. Cryptographic verification. Zero server knowledge.",
+    "au-6-title":"Critical Infrastructure","au-6-text":"Secure coordination across teams. Temporal compartmentalization. Audit compliance.",
+    "phil-heading":"Design Philosophy",
+    "phil-quote":"\"Byline assumes users will eventually make operational security mistakes. The system is designed to make those mistakes impossible to execute catastrophically. Security cannot depend on perfect human behavior. It must be enforced by architecture.\"",
+    "arch-heading":"Technical Architecture","arch-subtitle":"Minimal dependencies. Maximum control. Transparency in design.",
+    "arch-1-title":"Zero-Knowledge Relay","arch-1-text":"Messages routed through relay servers that know nothing about participants, timing, or relationships. VLESS + REALITY masking prevents network-level surveillance.",
+    "arch-2-title":"Double Ratchet Algorithm","arch-2-text":"Per-message key evolution. Forward secrecy guaranteed. Message authentication via AEAD (ChaCha20-Poly1305). No key reuse.",
+    "arch-3-title":"Hardware-Bound Keys","arch-3-text":"Ed25519 keys derived from BIP39 seed phrases. Keys never leave device. Recovery via cryptographic proof, not passwords.",
+    "arch-4-title":"Encrypted Local Database","arch-4-text":"SQLCipher with AES-256. All local state encrypted. No plaintext logs. Message history stored locally, never on server.",
+    "arch-5-title":"Ops Logging","arch-5-text":"Every group membership change is logged and visible. Who added whom. When. Device fingerprints. Full audit trail immutable in group state.",
+    "arch-6-title":"Trust-First Interface","arch-6-text":"No hidden background processes. No silent additions. Every action requires explicit user confirmation. Cryptographic verification results always visible.",
+    "beta-heading":"Request Access to Closed Beta",
+    "beta-subtitle":"Byline is in closed beta. We're recruiting a small group of operators, journalists, and security researchers to validate the architecture.",
+    "form-name":"Name","form-email":"Email","form-org":"Organization (Optional)",
+    "form-context":"Context: Why are you interested?","form-placeholder":"Tell us about your operational security needs...",
+    "form-submit":"Send Request","form-sending":"Sending...",
+    "form-success":"Thank you! We'll be in touch soon.",
+    "form-error":"Something went wrong. Please try again or email hello@byline-messenger.com",
+    "footer-docs-heading":"Documentation","footer-docs-arch":"Architecture","footer-docs-threat":"Threat Model","footer-docs-phil":"Philosophy",
+    "footer-sec-heading":"Security","footer-sec-disclosure":"Responsible Disclosure",
+    "footer-contact-heading":"Contact","footer-email":"Email","footer-pgp":"PGP Key","footer-status":"Status",
+    "footer-copy":"© 2026 Byline Communications. Operational security by design.",
+    "footer-privacy":"Privacy","footer-terms":"Terms","footer-disclosure":"Disclosure"
+  },
+  ru:{
+    "nav-arch":"Архитектура","nav-threat":"Модель угроз","nav-phil":"Философия","nav-cta":"Запросить доступ",
+    "hero":"Операционная безопасность, встроенная в архитектуру.",
+    "hero-subtitle":"Шифрование защищает сообщения в пути. Byline предотвращает катастрофические сбои коммуникации через жёсткие границы доверия, сессии, привязанные к устройству, и средства контроля операционной безопасности.",
+    "hero-cta-primary":"Запросить доступ","hero-cta-secondary":"Посмотреть архитектуру",
+    "visual-identity":"Идентичность","visual-session":"Сессия","visual-message":"Сообщение",
+    "problem-heading":"Провал операционной безопасности — март 2025",
+    "problem-intro":"В марте 2025 года катастрофический провал операционной безопасности обнажил ограничения подхода «шифрование прежде всего». Шифрование не подвело. Подвела человеческая система вокруг него.",
+    "t1-title":"Проблема","t1-text":"Источник был добавлен в групповую беседу без явного уведомления. Зашифрованная группа существовала, но ничто не препятствовало молчаливому добавлению непроверенных участников.",
+    "t2-title":"Последствие","t2-text":"Протоколы операционной безопасности были полностью обойдены. Группа не имела видимости изменений состава участников. Никто не мог проверить, какие устройства присутствуют.",
+    "t3-title":"Урок","t3-text":"Шифрование решает проблему безопасности транспорта. Но операционная безопасность требует контроля: видимости, согласия, верификации и компартментализации. Архитектура должна обеспечивать их принудительно.",
+    "failures-heading":"Почему современные мессенджеры проваливаются в операционной безопасности",
+    "f1-title":"Скрытые изменения состава","f1-text":"Нет журнала аудита при добавлении пользователей в группы. Нет уведомлений существующим участникам. Нет способа проверить, кто реально находится в беседе.",
+    "f2-title":"Неавторизованное дублирование устройств","f2-text":"Сессии могут клонироваться на новые устройства без явного разрешения. Верификация устройств опциональна, не обязательна.",
+    "f3-title":"Утечка метаданных","f3-text":"Сервер знает, кто кому пишет, когда и как часто. Метаданные раскрывают паттерны, обнажающие оперативно чувствительные связи.",
+    "f4-title":"Человеческие ошибки конфигурации","f4-text":"Неверно настроенные параметры групп, забытые устройства, непроверенные участники. Системы предполагают, что пользователи не ошибаются — но они ошибаются.",
+    "solution-heading":"Невозможно по дизайну",
+    "solution-subtitle":"Byline предотвращает провалы операционной безопасности через принудительную архитектуру. Эти гарантии структурны, а не опциональны.",
+    "sol-1-title":"Компартментализованные беседы","sol-1-text":"Каждая беседа криптографически изолирована. Сессии не могут перетекать между группами. Метаданные одной беседы не раскрывают ничего о других.",
+    "sol-2-title":"Сессии, привязанные к устройству","sol-2-text":"Сессии привязаны к конкретным устройствам. Добавление новых устройств требует явного разрешения. Молчаливая синхронизация невозможна по дизайну.",
+    "sol-3-title":"Обязательная видимость участников","sol-3-text":"Каждое изменение состава участников фиксируется и видно всем членам группы. Добавление кого-либо требует явного согласия. Никаких молчаливых добавлений.",
+    "sol-4-title":"Криптографическая верификация личности","sol-4-text":"Личности привязаны к устройству и криптографически верифицируемы. Подделка требует компрометации самого устройства, а не только приложения.",
+    "sol-5-title":"Zero-метаданные на реле","sol-5-text":"Сервер ничего не знает об участниках, времени, частоте и связях. Сквозное шифрование распространяется на метаданные.",
+    "sol-6-title":"Ограниченный экспорт сообщений","sol-6-text":"Сообщения не могут пересылаться или экспортироваться по умолчанию. Передача конфиденциального контента требует явного разрешения для каждого получателя.",
+    "threat-heading":"Модель угроз",
+    "threat-subtitle":"Byline разработан для защиты от конкретных, реалистичных угроз в условиях высокого риска. Чётко указывает, от чего защищает, а от чего — нет.",
+    "threat-pro-heading":"Защищает от","threat-con-heading":"Не защищает от",
+    "tp-1":"Случайного раскрытия участников","tp-2":"Несанкционированного дублирования сессий","tp-3":"Распространения скомпрометированного эндпоинта",
+    "tp-4":"Атак корреляции метаданных","tp-5":"Скрытых изменений членства в группах","tp-6":"Наблюдения на стороне сервера",
+    "tp-7":"Фальсификации сообщений в пути","tp-8":"Имперсонации устройств",
+    "tn-1":"Физического изъятия устройства","tn-2":"Аппаратных имплантов или кейлоггеров","tn-3":"Компрометации на уровне ядра",
+    "tn-4":"Физического принуждения","tn-5":"Вредоносной прошивки устройства","tn-6":"Правительственных требований о бэкдорах","tn-7":"Добровольного раскрытия пользователем",
+    "threat-note":"Byline предполагает изобретательного, но рационального противника. Предполагается, что пользователи могут совершать ошибки в операционной безопасности. Платформа делает катастрофическое исполнение таких ошибок невозможным.",
+    "audience-heading":"Создан для условий высокого риска",
+    "audience-subtitle":"Byline разработан для организаций, работающих в условиях, где операционная безопасность имеет экзистенциальное значение.",
+    "au-1-title":"Расследовательская журналистика","au-1-text":"Защита источников. Компартментализация расследований. Аудит изменений состава.",
+    "au-2-title":"Коммуникации руководства","au-2-text":"Конфиденциальные решения совета. Верифицированный доступ участников. Без раскрытия метаданных.",
+    "au-3-title":"Реагирование на инциденты","au-3-text":"Безопасная координация. Сессии, привязанные к устройству. Полный журнал аудита.",
+    "au-4-title":"Оборонные подрядчики","au-4-text":"Коммуникации уровня соответствия нормам. Аппаратно привязанная идентичность. Минимизация метаданных.",
+    "au-5-title":"Разведывательные операции","au-5-text":"Компартментированный доступ. Криптографическая верификация. Нулевые знания сервера.",
+    "au-6-title":"Критическая инфраструктура","au-6-text":"Безопасная координация между командами. Временная компартментализация. Соответствие нормам аудита.",
+    "phil-heading":"Философия дизайна",
+    "phil-quote":"«Byline исходит из того, что пользователи в конечном счёте совершают ошибки операционной безопасности. Система разработана так, чтобы сделать катастрофическое исполнение этих ошибок невозможным. Безопасность не может зависеть от идеального поведения человека. Она должна обеспечиваться архитектурой.»",
+    "arch-heading":"Техническая архитектура","arch-subtitle":"Минимум зависимостей. Максимум контроля. Прозрачность в дизайне.",
+    "arch-1-title":"Zero-Knowledge реле","arch-1-text":"Сообщения маршрутизируются через реле-серверы, которые ничего не знают об участниках, времени или связях. Маскировка VLESS + REALITY предотвращает наблюдение на сетевом уровне.",
+    "arch-2-title":"Алгоритм Double Ratchet","arch-2-text":"Эволюция ключей для каждого сообщения. Гарантированная совершенная прямая секретность. Аутентификация сообщений через AEAD (ChaCha20-Poly1305). Без повторного использования ключей.",
+    "arch-3-title":"Аппаратно привязанные ключи","arch-3-text":"Ключи Ed25519, производные от мнемонических фраз BIP39. Ключи никогда не покидают устройство. Восстановление через криптографическое доказательство, а не пароли.",
+    "arch-4-title":"Зашифрованная локальная база данных","arch-4-text":"SQLCipher с AES-256. Всё локальное состояние зашифровано. Без текстовых логов. История сообщений хранится локально, никогда — на сервере.",
+    "arch-5-title":"Оперативный журнал","arch-5-text":"Каждое изменение членства в группе фиксируется и видно. Кто кого добавил. Когда. Отпечатки устройств. Полный неизменяемый журнал аудита.",
+    "arch-6-title":"Интерфейс с приоритетом доверия","arch-6-text":"Никаких скрытых фоновых процессов. Никаких молчаливых добавлений. Каждое действие требует явного подтверждения пользователем. Результаты криптографической верификации всегда видны.",
+    "beta-heading":"Запросить доступ к закрытой бете",
+    "beta-subtitle":"Byline находится в закрытой бете. Мы набираем небольшую группу операторов, журналистов и исследователей безопасности для валидации архитектуры.",
+    "form-name":"Имя","form-email":"Email","form-org":"Организация (опционально)",
+    "form-context":"Контекст: Почему вам интересен Byline?","form-placeholder":"Расскажите о ваших потребностях в операционной безопасности...",
+    "form-submit":"Отправить заявку","form-sending":"Отправляем...",
+    "form-success":"Спасибо! Мы свяжемся с вами в ближайшее время.",
+    "form-error":"Что-то пошло не так. Попробуйте ещё раз или напишите на hello@byline-messenger.com",
+    "footer-docs-heading":"Документация","footer-docs-arch":"Архитектура","footer-docs-threat":"Модель угроз","footer-docs-phil":"Философия",
+    "footer-sec-heading":"Безопасность","footer-sec-disclosure":"Ответственное раскрытие",
+    "footer-contact-heading":"Контакты","footer-email":"Email","footer-pgp":"PGP ключ","footer-status":"Статус",
+    "footer-copy":"© 2026 Byline Communications. Операционная безопасность по дизайну.",
+    "footer-privacy":"Конфиденциальность","footer-terms":"Условия","footer-disclosure":"Раскрытие"
+  },
+  es:{
+    "nav-arch":"Arquitectura","nav-threat":"Modelo de Amenazas","nav-phil":"Filosofía","nav-cta":"Solicitar Acceso",
+    "hero":"Seguridad operativa, aplicada por diseño.",
+    "hero-subtitle":"El cifrado protege los mensajes en tránsito. Byline previene fallos catastróficos de comunicación antes de que ocurran mediante límites de confianza aplicados, sesiones vinculadas al hardware y controles de seguridad operativa.",
+    "hero-cta-primary":"Solicitar Acceso","hero-cta-secondary":"Ver Arquitectura",
+    "problem-heading":"El Fallo de Seguridad Operativa de Marzo 2025",
+    "failures-heading":"Por Qué los Mensajeros Modernos Fallan en Seguridad Operativa",
+    "solution-heading":"Imposible por Diseño","solution-subtitle":"Byline previene los fallos de seguridad operativa mediante una arquitectura impuesta. Estas garantías son estructurales, no opcionales.",
+    "threat-heading":"Modelo de Amenazas","threat-pro-heading":"Protege Contra","threat-con-heading":"No Protege Contra",
+    "audience-heading":"Construido para Entornos de Alto Riesgo","audience-subtitle":"Byline está diseñado para organizaciones que operan en entornos donde la seguridad operativa es existencial.",
+    "phil-heading":"Filosofía de Diseño","arch-heading":"Arquitectura Técnica","arch-subtitle":"Dependencias mínimas. Control máximo. Transparencia en el diseño.",
+    "beta-heading":"Solicitar Acceso a Beta Cerrada","beta-subtitle":"Byline está en beta cerrada. Estamos reclutando un pequeño grupo de operadores, periodistas e investigadores de seguridad.",
+    "form-name":"Nombre","form-email":"Correo Electrónico","form-org":"Organización (Opcional)",
+    "form-context":"Contexto: ¿Por qué le interesa?","form-placeholder":"Cuéntenos sobre sus necesidades de seguridad operativa...","form-submit":"Enviar Solicitud","form-sending":"Enviando...",
+    "form-success":"¡Gracias! Nos pondremos en contacto pronto.","form-error":"Algo salió mal. Inténtelo de nuevo.",
+    "footer-docs-heading":"Documentación","footer-docs-arch":"Arquitectura","footer-docs-threat":"Modelo de Amenazas","footer-docs-phil":"Filosofía",
+    "footer-sec-heading":"Seguridad","footer-sec-disclosure":"Divulgación Responsable","footer-contact-heading":"Contacto","footer-email":"Email","footer-pgp":"Clave PGP","footer-status":"Estado",
+    "footer-copy":"© 2026 Byline Communications. Seguridad operativa por diseño.","footer-privacy":"Privacidad","footer-terms":"Términos","footer-disclosure":"Divulgación"
+  },
+  fr:{
+    "nav-arch":"Architecture","nav-threat":"Modèle de Menaces","nav-phil":"Philosophie","nav-cta":"Demander l'Accès",
+    "hero":"Sécurité opérationnelle, appliquée par la conception.",
+    "hero-subtitle":"Le chiffrement protège les messages en transit. Byline prévient les défaillances catastrophiques de communication avant qu'elles ne surviennent.",
+    "hero-cta-primary":"Demander l'Accès","hero-cta-secondary":"Voir l'Architecture",
+    "problem-heading":"L'Échec de Sécurité Opérationnelle de Mars 2025",
+    "failures-heading":"Pourquoi les Messageries Modernes Échouent à la Sécurité Opérationnelle",
+    "solution-heading":"Impossible par Conception","solution-subtitle":"Byline prévient les défaillances de sécurité opérationnelle grâce à une architecture imposée.",
+    "threat-heading":"Modèle de Menaces","threat-pro-heading":"Protège Contre","threat-con-heading":"Ne Protège Pas Contre",
+    "audience-heading":"Conçu pour les Environnements à Haut Risque","audience-subtitle":"Byline est conçu pour les organisations opérant dans des environnements où la sécurité opérationnelle est existentielle.",
+    "phil-heading":"Philosophie de Conception","arch-heading":"Architecture Technique","arch-subtitle":"Dépendances minimales. Contrôle maximal. Transparence dans la conception.",
+    "beta-heading":"Demander l'Accès à la Bêta Fermée","beta-subtitle":"Byline est en bêta fermée. Nous recrutons un petit groupe d'opérateurs, journalistes et chercheurs en sécurité.",
+    "form-name":"Nom","form-email":"E-mail","form-org":"Organisation (Optionnel)",
+    "form-context":"Contexte: Pourquoi êtes-vous intéressé?","form-placeholder":"Parlez-nous de vos besoins en sécurité opérationnelle...","form-submit":"Envoyer la Demande","form-sending":"Envoi...",
+    "form-success":"Merci ! Nous vous contacterons bientôt.","form-error":"Quelque chose a mal tourné. Veuillez réessayer.",
+    "footer-docs-heading":"Documentation","footer-docs-arch":"Architecture","footer-docs-threat":"Modèle de Menaces","footer-docs-phil":"Philosophie",
+    "footer-sec-heading":"Sécurité","footer-sec-disclosure":"Divulgation Responsable","footer-contact-heading":"Contact","footer-email":"Email","footer-pgp":"Clé PGP","footer-status":"Statut",
+    "footer-copy":"© 2026 Byline Communications. Sécurité opérationnelle par conception.","footer-privacy":"Confidentialité","footer-terms":"Conditions","footer-disclosure":"Divulgation"
+  },
+  de:{
+    "nav-arch":"Architektur","nav-threat":"Bedrohungsmodell","nav-phil":"Philosophie","nav-cta":"Zugang Anfordern",
+    "hero":"Operative Sicherheit durch Design.",
+    "hero-subtitle":"Verschlüsselung schützt Nachrichten bei der Übertragung. Byline verhindert katastrophale Kommunikationsfehler durch erzwungene Vertrauensgrenzen und hardwaregebundene Sitzungen.",
+    "hero-cta-primary":"Zugang Anfordern","hero-cta-secondary":"Architektur Ansehen",
+    "problem-heading":"Das Operative Sicherheitsversagen im März 2025",
+    "failures-heading":"Warum Moderne Messenger bei Operativer Sicherheit Versagen",
+    "solution-heading":"Unmöglich durch Design","solution-subtitle":"Byline verhindert Betriebssicherheitsausfälle durch erzwungene Architektur.",
+    "threat-heading":"Bedrohungsmodell","threat-pro-heading":"Schützt Gegen","threat-con-heading":"Schützt Nicht Gegen",
+    "audience-heading":"Gebaut für Hochrisikoumgebungen","audience-subtitle":"Byline ist für Organisationen konzipiert, die in Umgebungen arbeiten, in denen operative Sicherheit existenziell ist.",
+    "phil-heading":"Designphilosophie","arch-heading":"Technische Architektur","arch-subtitle":"Minimale Abhängigkeiten. Maximale Kontrolle. Transparenz im Design.",
+    "beta-heading":"Zugang zur Geschlossenen Beta Anfordern","beta-subtitle":"Byline befindet sich in der geschlossenen Beta. Wir rekrutieren eine kleine Gruppe von Betreibern, Journalisten und Sicherheitsforschern.",
+    "form-name":"Name","form-email":"E-Mail","form-org":"Organisation (Optional)",
+    "form-context":"Kontext: Warum sind Sie interessiert?","form-placeholder":"Erzählen Sie uns von Ihren operativen Sicherheitsanforderungen...","form-submit":"Anfrage Senden","form-sending":"Sende...",
+    "form-success":"Danke! Wir melden uns bald.","form-error":"Etwas ist schief gelaufen. Bitte versuchen Sie es erneut.",
+    "footer-docs-heading":"Dokumentation","footer-docs-arch":"Architektur","footer-docs-threat":"Bedrohungsmodell","footer-docs-phil":"Philosophie",
+    "footer-sec-heading":"Sicherheit","footer-sec-disclosure":"Verantwortungsvolle Offenlegung","footer-contact-heading":"Kontakt","footer-email":"E-Mail","footer-pgp":"PGP-Schlüssel","footer-status":"Status",
+    "footer-copy":"© 2026 Byline Communications. Operative Sicherheit durch Design.","footer-privacy":"Datenschutz","footer-terms":"Bedingungen","footer-disclosure":"Offenlegung"
+  },
+  pt:{
+    "nav-arch":"Arquitetura","nav-threat":"Modelo de Ameaças","nav-phil":"Filosofia","nav-cta":"Solicitar Acesso",
+    "hero":"Segurança operacional, aplicada por design.",
+    "hero-subtitle":"A criptografia protege as mensagens em trânsito. Byline previne falhas catastróficas de comunicação antes que ocorram.",
+    "hero-cta-primary":"Solicitar Acesso","hero-cta-secondary":"Ver Arquitetura",
+    "problem-heading":"A Falha de Segurança Operacional de Março de 2025",
+    "solution-heading":"Impossível por Design","threat-heading":"Modelo de Ameaças","threat-pro-heading":"Protege Contra","threat-con-heading":"Não Protege Contra",
+    "audience-heading":"Construído para Ambientes de Alto Risco","phil-heading":"Filosofia de Design","arch-heading":"Arquitetura Técnica",
+    "beta-heading":"Solicitar Acesso ao Beta Fechado",
+    "form-name":"Nome","form-email":"E-mail","form-org":"Organização (Opcional)","form-context":"Contexto: Por que você está interessado?","form-placeholder":"Conte-nos sobre suas necessidades de segurança operacional...","form-submit":"Enviar Solicitação","form-sending":"Enviando...",
+    "form-success":"Obrigado! Entraremos em contato em breve.","form-error":"Algo deu errado. Por favor, tente novamente.",
+    "footer-copy":"© 2026 Byline Communications. Segurança operacional por design.","footer-privacy":"Privacidade","footer-terms":"Termos","footer-disclosure":"Divulgação"
+  },
+  it:{
+    "nav-arch":"Architettura","nav-threat":"Modello di Minacce","nav-phil":"Filosofia","nav-cta":"Richiedi Accesso",
+    "hero":"Sicurezza operativa, applicata dal design.",
+    "hero-subtitle":"La crittografia protegge i messaggi in transito. Byline previene i guasti catastrofici di comunicazione prima che accadano.",
+    "hero-cta-primary":"Richiedi Accesso","hero-cta-secondary":"Vedi Architettura",
+    "problem-heading":"Il Fallimento della Sicurezza Operativa di Marzo 2025",
+    "solution-heading":"Impossibile per Design","threat-heading":"Modello di Minacce","threat-pro-heading":"Protegge Da","threat-con-heading":"Non Protegge Da",
+    "audience-heading":"Costruito per Ambienti ad Alto Rischio","phil-heading":"Filosofia di Design","arch-heading":"Architettura Tecnica",
+    "beta-heading":"Richiedi Accesso alla Beta Chiusa",
+    "form-name":"Nome","form-email":"Email","form-org":"Organizzazione (Opzionale)","form-context":"Contesto: Perché sei interessato?","form-placeholder":"Raccontaci delle tue esigenze di sicurezza operativa...","form-submit":"Invia Richiesta","form-sending":"Invio...",
+    "form-success":"Grazie! Ti contatteremo presto.","form-error":"Qualcosa è andato storto. Per favore riprova.",
+    "footer-copy":"© 2026 Byline Communications. Sicurezza operativa per design.","footer-privacy":"Privacy","footer-terms":"Termini","footer-disclosure":"Divulgazione"
+  },
+  zh:{
+    "nav-arch":"架构","nav-threat":"威胁模型","nav-phil":"设计哲学","nav-cta":"申请访问",
+    "hero":"运营安全，通过设计强制执行。",
+    "hero-subtitle":"加密保护传输中的消息。Byline通过强制信任边界、硬件绑定会话和运营安全控制，在灾难性通信故障发生之前将其阻止。",
+    "hero-cta-primary":"申请访问","hero-cta-secondary":"查看架构",
+    "problem-heading":"2025年3月运营安全故障",
+    "solution-heading":"通过设计使其不可能","threat-heading":"威胁模型","threat-pro-heading":"防范","threat-con-heading":"不防范",
+    "audience-heading":"专为高风险环境构建","phil-heading":"设计哲学","arch-heading":"技术架构",
+    "beta-heading":"申请封闭测试版访问",
+    "form-name":"姓名","form-email":"电子邮件","form-org":"组织（可选）","form-context":"背景：您为什么感兴趣？","form-placeholder":"告诉我们您的运营安全需求...","form-submit":"发送申请","form-sending":"发送中...",
+    "form-success":"谢谢！我们会尽快与您联系。","form-error":"出了些问题，请重试。",
+    "footer-copy":"© 2026 Byline Communications. 通过设计的运营安全。","footer-privacy":"隐私","footer-terms":"条款","footer-disclosure":"披露"
+  },
+  ja:{
+    "nav-arch":"アーキテクチャ","nav-threat":"脅威モデル","nav-phil":"哲学","nav-cta":"アクセスをリクエスト",
+    "hero":"設計によって強制される運用セキュリティ。",
+    "hero-subtitle":"暗号化は転送中のメッセージを保護します。Bylineは、強制された信頼境界、ハードウェアにバインドされたセッション、運用セキュリティ制御によって、壊滅的な通信障害を事前に防ぎます。",
+    "hero-cta-primary":"アクセスをリクエスト","hero-cta-secondary":"アーキテクチャを見る",
+    "problem-heading":"2025年3月の運用セキュリティ障害",
+    "solution-heading":"設計上不可能","threat-heading":"脅威モデル","threat-pro-heading":"保護対象","threat-con-heading":"保護対象外",
+    "audience-heading":"高リスク環境向けに構築","phil-heading":"設計哲学","arch-heading":"技術アーキテクチャ",
+    "beta-heading":"クローズドベータへのアクセスをリクエスト",
+    "form-name":"名前","form-email":"メール","form-org":"組織（任意）","form-context":"コンテキスト：なぜ興味があるのですか？","form-placeholder":"運用上のセキュリティニーズについて教えてください...","form-submit":"リクエストを送信","form-sending":"送信中...",
+    "form-success":"ありがとうございます！近日中にご連絡します。","form-error":"問題が発生しました。もう一度お試しください。",
+    "footer-copy":"© 2026 Byline Communications. 設計による運用セキュリティ。","footer-privacy":"プライバシー","footer-terms":"利用規約","footer-disclosure":"開示"
+  },
+  ar:{
+    "nav-arch":"الهندسة المعمارية","nav-threat":"نموذج التهديد","nav-phil":"الفلسفة","nav-cta":"طلب الوصول",
+    "hero":"الأمان التشغيلي، مُفعَّل بالتصميم.",
+    "hero-subtitle":"يحمي التشفير الرسائل أثناء النقل. يمنع Byline الفشل الكارثي في الاتصالات قبل وقوعه من خلال حدود ثقة مُفعَّلة وجلسات مرتبطة بالأجهزة.",
+    "hero-cta-primary":"طلب الوصول","hero-cta-secondary":"عرض الهندسة المعمارية",
+    "problem-heading":"فشل أمن التشغيل في مارس 2025",
+    "solution-heading":"مستحيل بالتصميم","threat-heading":"نموذج التهديد","threat-pro-heading":"يحمي ضد","threat-con-heading":"لا يحمي ضد",
+    "audience-heading":"مصمم للبيئات عالية المخاطر","phil-heading":"فلسفة التصميم","arch-heading":"البنية التقنية",
+    "beta-heading":"طلب الوصول إلى النسخة التجريبية المغلقة",
+    "form-name":"الاسم","form-email":"البريد الإلكتروني","form-org":"المنظمة (اختياري)","form-context":"السياق: لماذا أنت مهتم؟","form-placeholder":"أخبرنا عن احتياجاتك الأمنية التشغيلية...","form-submit":"إرسال الطلب","form-sending":"جارٍ الإرسال...",
+    "form-success":"شكراً! سنتواصل معك قريباً.","form-error":"حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+    "footer-copy":"© 2026 Byline Communications. أمان تشغيلي بالتصميم.","footer-privacy":"الخصوصية","footer-terms":"الشروط","footer-disclosure":"الإفصاح"
+  },
+  tr:{
+    "nav-arch":"Mimari","nav-threat":"Tehdit Modeli","nav-phil":"Felsefe","nav-cta":"Erişim İste",
+    "hero":"Tasarım tarafından zorunlu kılınan operasyonel güvenlik.",
+    "hero-subtitle":"Şifreleme, iletim sırasında mesajları korur. Byline, zorunlu güven sınırları ve donanıma bağlı oturumlar aracılığıyla yıkıcı iletişim hatalarını önceden önler.",
+    "hero-cta-primary":"Erişim İste","hero-cta-secondary":"Mimariyi Gör",
+    "problem-heading":"Mart 2025 Operasyonel Güvenlik Başarısızlığı",
+    "solution-heading":"Tasarım Gereği İmkânsız","threat-heading":"Tehdit Modeli","threat-pro-heading":"Karşı Koruma Sağlar","threat-con-heading":"Karşı Koruma Sağlamaz",
+    "audience-heading":"Yüksek Riskli Ortamlar İçin Tasarlandı","phil-heading":"Tasarım Felsefesi","arch-heading":"Teknik Mimari",
+    "beta-heading":"Kapalı Beta Erişimi İste",
+    "form-name":"Ad","form-email":"E-posta","form-org":"Kuruluş (İsteğe Bağlı)","form-context":"Bağlam: Neden ilgileniyorsunuz?","form-placeholder":"Operasyonel güvenlik ihtiyaçlarınız hakkında bilgi verin...","form-submit":"İstek Gönder","form-sending":"Gönderiliyor...",
+    "form-success":"Teşekkürler! Yakında sizinle iletişime geçeceğiz.","form-error":"Bir şeyler ters gitti. Lütfen tekrar deneyin.",
+    "footer-copy":"© 2026 Byline Communications. Tasarım gereği operasyonel güvenlik.","footer-privacy":"Gizlilik","footer-terms":"Koşullar","footer-disclosure":"Açıklama"
+  },
+  uk:{
+    "nav-arch":"Архітектура","nav-threat":"Модель загроз","nav-phil":"Філософія","nav-cta":"Запросити доступ",
+    "hero":"Операційна безпека, забезпечена дизайном.",
+    "hero-subtitle":"Шифрування захищає повідомлення в дорозі. Byline запобігає катастрофічним збоям зв'язку завдяки примусовим межам довіри та сесіям, прив'язаним до пристрою.",
+    "hero-cta-primary":"Запросити доступ","hero-cta-secondary":"Переглянути архітектуру",
+    "problem-heading":"Збій операційної безпеки у березні 2025",
+    "solution-heading":"Неможливо за задумом","threat-heading":"Модель загроз","threat-pro-heading":"Захищає від","threat-con-heading":"Не захищає від",
+    "audience-heading":"Створено для умов підвищеного ризику","phil-heading":"Філософія дизайну","arch-heading":"Технічна архітектура",
+    "beta-heading":"Запросити доступ до закритої бети",
+    "form-name":"Ім'я","form-email":"Email","form-org":"Організація (необов'язково)","form-context":"Контекст: Чому вас це цікавить?","form-placeholder":"Розкажіть про ваші потреби в операційній безпеці...","form-submit":"Надіслати заявку","form-sending":"Надсилаємо...",
+    "form-success":"Дякуємо! Ми зв'яжемося з вами найближчим часом.","form-error":"Щось пішло не так. Спробуйте ще раз.",
+    "footer-copy":"© 2026 Byline Communications. Операційна безпека за дизайном.","footer-privacy":"Конфіденційність","footer-terms":"Умови","footer-disclosure":"Розкриття"
+  },
+  pl:{
+    "nav-arch":"Architektura","nav-threat":"Model Zagrożeń","nav-phil":"Filozofia","nav-cta":"Poproś o Dostęp",
+    "hero":"Bezpieczeństwo operacyjne, egzekwowane przez projekt.",
+    "hero-subtitle":"Szyfrowanie chroni wiadomości w tranzycie. Byline zapobiega katastrofalnym awariom komunikacji dzięki wymuszonym granicom zaufania i sesjom powiązanym ze sprzętem.",
+    "hero-cta-primary":"Poproś o Dostęp","hero-cta-secondary":"Zobacz Architekturę",
+    "problem-heading":"Awaria Bezpieczeństwa Operacyjnego w Marcu 2025",
+    "solution-heading":"Niemożliwe przez Projekt","threat-heading":"Model Zagrożeń","threat-pro-heading":"Chroni Przed","threat-con-heading":"Nie Chroni Przed",
+    "audience-heading":"Zbudowane dla Środowisk Wysokiego Ryzyka","phil-heading":"Filozofia Projektu","arch-heading":"Architektura Techniczna",
+    "beta-heading":"Poproś o Dostęp do Zamkniętej Bety",
+    "form-name":"Imię i Nazwisko","form-email":"Email","form-org":"Organizacja (Opcjonalnie)","form-context":"Kontekst: Dlaczego jesteś zainteresowany?","form-placeholder":"Opowiedz nam o swoich potrzebach w zakresie bezpieczeństwa operacyjnego...","form-submit":"Wyślij Prośbę","form-sending":"Wysyłanie...",
+    "form-success":"Dziękujemy! Skontaktujemy się wkrótce.","form-error":"Coś poszło nie tak. Spróbuj ponownie.",
+    "footer-copy":"© 2026 Byline Communications. Bezpieczeństwo operacyjne przez projekt.","footer-privacy":"Prywatność","footer-terms":"Warunki","footer-disclosure":"Ujawnienie"
+  }
+};
 
-        function switchLanguage(lang) {
-            localStorage.setItem('byline-lang', lang);
-            document.documentElement.lang = lang;
-            const trans = translations[lang] || translations['en'];
-            Object.keys(trans).forEach(key => {
-                document.querySelectorAll(`[data-i18n="${key}"]`).forEach(el => {
-                    el.textContent = trans[key];
-                });
-            });
-        }
+// ─── i18n ENGINE ──────────────────────────────────────────────────────────────
+function tr(lang, key) {
+    return (T[lang]&&T[lang][key]) || (T.en&&T.en[key]) || '';
+}
 
-        const savedLang = localStorage.getItem('byline-lang') || (navigator.language||'en').split('-')[0];
-        document.getElementById('lang-select').value = savedLang;
-        switchLanguage(savedLang);
-        document.getElementById('lang-select').addEventListener('change', e => switchLanguage(e.target.value));
+function switchLanguage(lang) {
+    if (!T[lang]) lang = 'en';
+    localStorage.setItem('byline-lang', lang);
+    document.documentElement.lang = lang;
+    document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
 
-        document.querySelectorAll('a[href^="#"]').forEach(link => {
-            link.addEventListener('click', e => {
-                const href = link.getAttribute('href');
-                if(href !== '#') {
-                    e.preventDefault();
-                    document.querySelector(href).scrollIntoView({behavior:'smooth'});
-                }
-            });
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const v = tr(lang, el.getAttribute('data-i18n'));
+        if (v) el.textContent = v;
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const v = tr(lang, el.getAttribute('data-i18n-placeholder'));
+        if (v) el.placeholder = v;
+    });
+}
+
+const saved = localStorage.getItem('byline-lang') || (navigator.language||'en').split('-')[0];
+const sel   = document.getElementById('lang-select');
+sel.value   = T[saved] ? saved : 'en';
+switchLanguage(sel.value);
+sel.addEventListener('change', e => switchLanguage(e.target.value));
+
+// ─── MOBILE MENU ──────────────────────────────────────────────────────────────
+const burger  = document.getElementById('hamburger');
+const mainNav = document.getElementById('main-nav');
+
+burger.addEventListener('click', () => {
+    const open = mainNav.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open);
+});
+mainNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    mainNav.classList.remove('open');
+    burger.classList.remove('open');
+    burger.setAttribute('aria-expanded', false);
+}));
+
+// ─── SMOOTH SCROLL ────────────────────────────────────────────────────────────
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+        const h = a.getAttribute('href');
+        if (h !== '#') { e.preventDefault(); document.querySelector(h)?.scrollIntoView({behavior:'smooth'}); }
+    });
+});
+
+// ─── FORMSPREE AJAX ───────────────────────────────────────────────────────────
+const form      = document.getElementById('beta-form');
+const btnEl     = document.getElementById('form-btn');
+const successEl = document.getElementById('form-success');
+const errorEl   = document.getElementById('form-error');
+
+form.addEventListener('submit', async e => {
+    e.preventDefault();
+    successEl.className = 'form-status';
+    errorEl.className   = 'form-status';
+    const lang = document.documentElement.lang || 'en';
+    btnEl.disabled    = true;
+    btnEl.textContent = tr(lang,'form-sending') || 'Sending...';
+    try {
+        const res = await fetch(form.action, {
+            method: 'POST', body: new FormData(form), headers: {'Accept':'application/json'}
         });
-    </script>
+        if (res.ok) {
+            successEl.textContent = tr(lang,'form-success');
+            successEl.className   = 'form-status success';
+            form.reset();
+        } else { throw new Error(); }
+    } catch {
+        errorEl.textContent = tr(lang,'form-error');
+        errorEl.className   = 'form-status error';
+    } finally {
+        btnEl.disabled    = false;
+        btnEl.textContent = tr(lang,'form-submit') || 'Send Request';
+    }
+});
+</script>
 </body>
 </html>
