@@ -201,7 +201,7 @@ If you're a journalist or activist interested in helping shape Byline, [sign up 
 We'll open contributions after MVP launch. Stay tuned!
 
 ### Questions?
-[Open an issue](https://github.com/byline-messenger/byline/issues) or email hello@byline.app
+[Open an issue](https://github.com/byline-messenger/byline/issues) or email dmitriy_kh@outlook.com
 
 ---
 
