@@ -203,11 +203,7 @@ We'll open contributions after MVP launch. Stay tuned!
 ### Questions?
 [Open an issue](https://github.com/byline-messenger/byline/issues) or email dmitriy_kh@outlook.com
 
----
 
-## 📜 License
-
-[To be determined - likely GPL or similar for privacy protection]
 
 ---
 
