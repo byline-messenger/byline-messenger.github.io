@@ -284,6 +284,15 @@
         .text-tertiary  { color: var(--color-text-tertiary); }
         .text-mono { font-family: 'Monaco','Courier New',monospace; font-size: 0.9rem; }
         .divider { height: 1px; background: var(--color-border); margin: var(--spacing-lg) 0; }
+
+        /* DONATE */
+        .donate-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--spacing-md); margin-top: var(--spacing-lg); }
+        .donate-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 8px; padding: var(--spacing-md); }
+        .donate-card h3 { margin-bottom: var(--spacing-sm); font-size: 1rem; }
+        .crypto-address { display: flex; align-items: center; gap: var(--spacing-xs); background: var(--color-near-black); border: 1px solid var(--color-border); border-radius: 6px; padding: var(--spacing-xs) var(--spacing-sm); }
+        .crypto-address code { font-family: 'Monaco','Courier New',monospace; font-size: 0.78rem; color: var(--color-text-secondary); word-break: break-all; flex: 1; }
+        .copy-btn { background: transparent; color: var(--color-accent); border: 1px solid var(--color-border); border-radius: 4px; padding: 4px 10px; font-size: 0.8rem; cursor: pointer; white-space: nowrap; transition: all 0.15s; flex-shrink: 0; }
+        .copy-btn:hover { background: var(--color-border); border-color: var(--color-accent); }
     </style>
 </head>
 <body>
@@ -295,6 +304,7 @@
                 <a href="#architecture" data-i18n="nav-arch">Architecture</a>
                 <a href="#threat-model" data-i18n="nav-threat">Threat Model</a>
                 <a href="#philosophy" data-i18n="nav-phil">Philosophy</a>
+                <a href="#support">Support</a>
                 <a href="#beta" class="nav-cta" data-i18n="nav-cta">Request Access</a>
             </nav>
             <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
@@ -561,6 +571,38 @@
         </div>
     </section>
 
+    <!-- SUPPORT / DONATE -->
+    <section id="support">
+        <div class="container">
+            <h2>Support the Mission</h2>
+            <p style="text-align:center;color:var(--color-text-secondary);max-width:640px;margin:0 auto var(--spacing-lg);">Byline is built for journalists and operators who depend on real operational security. Development is independent and unfunded. Anonymous crypto donations keep it that way — no payment processor, no metadata, no strings.</p>
+            <div class="donate-grid">
+                <div class="donate-card">
+                    <h3>₿ Bitcoin (BTC)</h3>
+                    <div class="crypto-address">
+                        <code id="addr-btc">bc1q202xy7kd7s2kurzegjfrgwaaphctc768yv8tvp</code>
+                        <button class="copy-btn" onclick="copyAddress('addr-btc',this)">Copy</button>
+                    </div>
+                </div>
+                <div class="donate-card">
+                    <h3>Ξ Ethereum (ETH / ERC-20)</h3>
+                    <div class="crypto-address">
+                        <code id="addr-eth">0xEcf3C62dEEB775896B2A372D6b3d59064D39C96a</code>
+                        <button class="copy-btn" onclick="copyAddress('addr-eth',this)">Copy</button>
+                    </div>
+                </div>
+                <div class="donate-card">
+                    <h3>⬡ Polygon (POL / ERC-20)</h3>
+                    <div class="crypto-address">
+                        <code id="addr-pol">0xEcf3C62dEEB775896B2A372D6b3d59064D39C96a</code>
+                        <button class="copy-btn" onclick="copyAddress('addr-pol',this)">Copy</button>
+                    </div>
+                </div>
+            </div>
+            <p style="margin-top:var(--spacing-md);text-align:center;color:var(--color-text-tertiary);font-size:0.85rem;">Verify the address before sending. Crypto transactions are irreversible.<br>These addresses are PGP-signed: <a href="donations.txt.asc">verify signature</a> against the <a href="byline-pubkey.asc">Byline public key</a>.</p>
+        </div>
+    </section>
+
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -574,20 +616,21 @@
                     <h4 data-i18n="footer-sec-heading">Security</h4>
                     <a href="https://github.com/byline-messenger/byline-messenger.github.io" target="_blank" rel="noopener">GitHub</a>
                     <a href="/.well-known/security.txt">Security.txt</a>
-                    <a href="mailto:security@byline-messenger.com" data-i18n="footer-sec-disclosure">Responsible Disclosure</a>
+                    <a href="byline-pubkey.asc">PGP Key</a>
+                    <a href="mailto:dmitrii_kh@icloud.com" data-i18n="footer-sec-disclosure">Responsible Disclosure</a>
                 </div>
                 <div class="footer-section">
                     <h4 data-i18n="footer-contact-heading">Contact</h4>
-                    <a href="mailto:hello@byline-messenger.com" data-i18n="footer-email">Email</a>
+                    <a href="mailto:dmitrii_kh@icloud.com" data-i18n="footer-email">Email</a>
                     <a href="https://github.com/byline-messenger/byline-messenger.github.io/issues" target="_blank" rel="noopener" data-i18n="footer-status">Status</a>
                 </div>
             </div>
             <div class="footer-bottom">
                 <div data-i18n="footer-copy">© 2026 Byline Communications. Operational security by design.</div>
                 <div>
-                    <a href="mailto:legal@byline-messenger.com?subject=Privacy" data-i18n="footer-privacy">Privacy</a> ·
-                    <a href="mailto:legal@byline-messenger.com?subject=Terms" data-i18n="footer-terms">Terms</a> ·
-                    <a href="mailto:security@byline-messenger.com?subject=Disclosure" data-i18n="footer-disclosure">Disclosure</a>
+                    <a href="mailto:dmitrii_kh@icloud.com?subject=Privacy" data-i18n="footer-privacy">Privacy</a> ·
+                    <a href="mailto:dmitrii_kh@icloud.com?subject=Terms" data-i18n="footer-terms">Terms</a> ·
+                    <a href="mailto:dmitrii_kh@icloud.com?subject=Disclosure" data-i18n="footer-disclosure">Disclosure</a>
                 </div>
             </div>
         </div>
@@ -944,6 +987,15 @@ mainNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
     burger.classList.remove('open');
     burger.setAttribute('aria-expanded', false);
 }));
+
+// ─── COPY ADDRESS ─────────────────────────────────────────────────────────────
+function copyAddress(id, btn) {
+    navigator.clipboard.writeText(document.getElementById(id).textContent.trim()).then(() => {
+        const orig = btn.textContent;
+        btn.textContent = 'Copied';
+        setTimeout(() => { btn.textContent = orig; }, 1500);
+    });
+}
 
 // ─── SMOOTH SCROLL ────────────────────────────────────────────────────────────
 document.querySelectorAll('a[href^="#"]').forEach(a => {
